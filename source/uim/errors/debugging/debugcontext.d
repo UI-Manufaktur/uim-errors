@@ -15,31 +15,21 @@ use SplObjectStorage;
  *
  * @internal
  */
-class DebugContext
-{
-    /**
-     * @var int
-     */
-    private $maxDepth;
+class DebugContext {
+    private int _maxDepth;
 
-    /**
-     * @var int
-     */
-    private $depth = 0;
+    private int _depth = 0;
 
-    /**
-     * @var \SplObjectStorage
-     */
-    private $refs;
+    private SplObjectStorage _refs;
 
     /**
      * Constructor
      *
      * @param int $maxDepth The desired depth of dump output.
      */
-    this(int $maxDepth) {
-        this.maxDepth = $maxDepth;
-        this.refs = new SplObjectStorage();
+    this(int aMaxDepth) {
+        _maxDepth = aMaxDepth;
+        _refs = new SplObjectStorage();
     }
 
     /**
@@ -54,11 +44,9 @@ class DebugContext
         return $new;
     }
 
-    /**
-     * Get the remaining depth levels
-     */
+    // Get the remaining depth levels
     int remainingDepth() {
-        return this.maxDepth - this.depth;
+      return t_maxDepth - _depth;
     }
 
     /**
@@ -71,13 +59,13 @@ class DebugContext
      * @return int
      */
     int getReferenceId(object $object) {
-        if (this.refs.contains($object)) {
-            return this.refs[$object];
-        }
-        $refId = this.refs.count();
-        this.refs.attach($object, $refId);
+      if (this.refs.contains($object)) {
+          return this.refs[$object];
+      }
+      $refId = this.refs.count();
+      this.refs.attach($object, $refId);
 
-        return $refId;
+      return $refId;
     }
 
     /**
