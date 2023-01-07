@@ -1,0 +1,35 @@
+{
+	"authors": [
+		"Ozan Nurettin Süel"
+	],
+	"description": "A D library",
+	"license": "Apache-2.0",
+	"name": "uim-errors",
+	"targetType": "library",
+	"copyright": "Copyright © 2015-2023, Ozan NUrettin Süel",
+	"dependencies": {
+		"colored": "0.0.23",
+		"vibe-d": "0.9.5"	
+	},
+	"configurations": [
+		{
+			"name": "offline"
+		},
+		{
+			"name": "test",
+			"versions": [
+				"test_uim_errors"
+			]
+		}
+	],
+	"importPaths": [
+		"../uim-core",
+		"../uim-oop",
+		"./"
+	],
+	"sourcePaths": [
+		"../uim-core",
+		"../uim-oop",
+		"./"
+	]
+}
