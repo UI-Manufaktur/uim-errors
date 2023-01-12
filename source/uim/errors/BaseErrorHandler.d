@@ -1,4 +1,4 @@
-module uim.cake.errors;
+module uim.errors;
 
 import uim.cake.core.Configure;
 import uim.cake.core.InstanceConfigTrait;
@@ -38,7 +38,7 @@ abstract class BaseErrorHandler
     /**
      * Exception logger instance.
      *
-     * @var uim.cake.errors.IErrorLogger|null
+     * @var uim.errors.IErrorLogger|null
      */
     protected logger;
 
@@ -303,11 +303,11 @@ abstract class BaseErrorHandler
     /**
      * Get exception logger.
      *
-     * @return uim.cake.errors.IErrorLogger
+     * @return uim.errors.IErrorLogger
      */
     auto getLogger() {
         if (this.logger is null) {
-            /** @var uim.cake.errors.IErrorLogger $logger */
+            /** @var uim.errors.IErrorLogger $logger */
             $logger = new _config["errorLogger"](_config);
 
             if (!$logger instanceof IErrorLogger) {

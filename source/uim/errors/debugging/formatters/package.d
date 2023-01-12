@@ -1,1 +1,1 @@
-module uim.cake.errors.debugs.formatters;
+module uim.errors.debugs.formatters;

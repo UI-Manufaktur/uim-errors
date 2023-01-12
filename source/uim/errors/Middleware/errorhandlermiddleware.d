@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors.Middleware;
+module uim.errors.Middleware;
 
 @safe:
 import uim.cake;
@@ -42,8 +42,8 @@ class ErrorHandlerMiddleware : IMiddleware
      *
      * - `trace` Should error logs include stack traces?
      * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
-     *   which returns a uim.cake.errors.IExceptionRenderer instance.
-     *   Defaults to uim.cake.errors.ExceptionRenderer
+     *   which returns a uim.errors.IExceptionRenderer instance.
+     *   Defaults to uim.errors.ExceptionRenderer
      *
      * @var array<string, mixed>
      */
@@ -57,14 +57,14 @@ class ErrorHandlerMiddleware : IMiddleware
     /**
      * Error handler instance.
      *
-     * @var uim.cake.errors.ErrorHandler|null
+     * @var uim.errors.ErrorHandler|null
      */
     protected myErrorHandler;
 
     /**
      * Constructor
      *
-     * @param uim.cake.errors.ErrorHandler|array myErrorHandler The error handler instance
+     * @param uim.errors.ErrorHandler|array myErrorHandler The error handler instance
      *  or config array.
      * @throws \InvalidArgumentException
      */
@@ -165,12 +165,12 @@ class ErrorHandlerMiddleware : IMiddleware
     /**
      * Get a error handler instance
      *
-     * @return uim.cake.errors.ErrorHandler The error handler.
+     * @return uim.errors.ErrorHandler The error handler.
      */
     protected auto getErrorHandler(): ErrorHandler
     {
         if (this.errorHandler is null) {
-            /** @var class-string<uim.cake.errors.ErrorHandler> myClassName */
+            /** @var class-string<uim.errors.ErrorHandler> myClassName */
             myClassName = App::className("ErrorHandler", "Error");
             this.errorHandler = new myClassName(this.getConfig());
         }

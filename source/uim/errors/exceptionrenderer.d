@@ -1,6 +1,6 @@
 module uim.cake.Error;
 
-import uim.cake.errors.rendererss.WebExceptionRenderer;
+import uim.errors.rendererss.WebExceptionRenderer;
 
 /**
  * Backwards compatible Exception Renderer.

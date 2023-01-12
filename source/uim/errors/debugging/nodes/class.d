@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors.debugs.nodes;
+module uim.errors.debugs.nodes;
 
 /**
  * Dump node for objects/class instances.
@@ -29,7 +29,7 @@ class ClassNode : INode {
     /**
      * Add a property
      *
-     * @param uim.cake.errors.debugs.PropertyNode myNode The property to add.
+     * @param uim.errors.debugs.PropertyNode myNode The property to add.
      */
     void addProperty(PropertyNode aNode) {
         _properties ~= aNode;
@@ -52,7 +52,7 @@ class ClassNode : INode {
     /**
      * Get property nodes
      *
-     * @return array<uim.cake.errors.debugs.PropertyNode>
+     * @return array<uim.errors.debugs.PropertyNode>
      */
     INode[] getChildren() {
         return this.properties;

@@ -1,4 +1,4 @@
-module uim.cake.errors.errorlogger;
+module uim.errors.errorlogger;
 
 @safe:
 import uim.cake;

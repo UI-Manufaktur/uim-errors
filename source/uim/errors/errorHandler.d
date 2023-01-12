@@ -1,4 +1,4 @@
-module uim.cake.errors;
+module uim.errors;
 
 import uim.cake.core.App;
 import uim.caketps\ResponseEmitter;
@@ -68,7 +68,7 @@ use Throwable;
  *
  * Would enable handling for all non Notice errors.
  *
- * @see uim.cake.errors.ExceptionRenderer for more information on how to customize exception rendering.
+ * @see uim.errors.ExceptionRenderer for more information on how to customize exception rendering.
  */
 class ErrorHandler : BaseErrorHandler
 {
@@ -126,7 +126,7 @@ class ErrorHandler : BaseErrorHandler
      *
      * @param \Throwable myException The exception being rendered.
      * @param \Psr\Http\messages.IServerRequest|null myRequest The request.
-     * @return uim.cake.errors.IExceptionRenderer The exception renderer.
+     * @return uim.errors.IExceptionRenderer The exception renderer.
      * @throws \RuntimeException When the renderer class cannot be found.
      */
     auto getRenderer(
@@ -136,7 +136,7 @@ class ErrorHandler : BaseErrorHandler
         $renderer = _config["exceptionRenderer"];
 
         if (is_string($renderer)) {
-            /** @var class-string<uim.cake.errors.IExceptionRenderer>|null myClass */
+            /** @var class-string<uim.errors.IExceptionRenderer>|null myClass */
             myClass = App::className($renderer, "Error");
             if (!myClass) {
                 throw new RuntimeException(sprintf(

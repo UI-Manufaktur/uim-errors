@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors.debugs;
+module uim.errors.debugs;
 
 use RuntimeException;
 
@@ -84,7 +84,7 @@ class ConsoleFormatter : IFormatter {
     /**
      * Convert a tree of INode objects into a plain text string.
      *
-     * @param uim.cake.errors.debugs.INode myNode The node tree to dump.
+     * @param uim.errors.debugs.INode myNode The node tree to dump.
      */
     string dump(INode myNode) {
         $indent = 0;
@@ -95,7 +95,7 @@ class ConsoleFormatter : IFormatter {
     /**
      * Convert a tree of INode objects into a plain text string.
      *
-     * @param uim.cake.errors.debugs.INode $var The node tree to dump.
+     * @param uim.errors.debugs.INode $var The node tree to dump.
      * @param int $indent The current indentation level.
      * @return string
      */
@@ -131,7 +131,7 @@ class ConsoleFormatter : IFormatter {
     /**
      * Export an array type object
      *
-     * @param uim.cake.errors.debugs.ArrayNode $var The array to export.
+     * @param uim.errors.debugs.ArrayNode $var The array to export.
      * @param int $indent The current indentation level.
      * @return string Exported array.
      */
@@ -158,10 +158,10 @@ class ConsoleFormatter : IFormatter {
     /**
      * Handles object to string conversion.
      *
-     * @param uim.cake.errors.debugs.ClassNode|uim.cake.errors.debugs.ReferenceNode $var Object to convert.
+     * @param uim.errors.debugs.ClassNode|uim.errors.debugs.ReferenceNode $var Object to convert.
      * @param int $indent Current indentation level.
      * @return string
-     * @see uim.cake.errors.Debugger::exportVar()
+     * @see uim.errors.Debugger::exportVar()
      */
     protected string exportObject($var, int $indent) {
         $props = [];

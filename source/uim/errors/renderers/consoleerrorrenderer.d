@@ -5,11 +5,11 @@
 
 
  * @since         4.4.0
-  */module uim.cake.errors.renderers;
+  */module uim.errors.renderers;
 
 import uim.cake.consoles.ConsoleOutput;
-import uim.cake.errors.ErrorRendererInterface;
-import uim.cake.errors.PhpError;
+import uim.errors.ErrorRendererInterface;
+import uim.errors.PhpError;
 
 /**
  * Plain text error rendering with a stack trace.

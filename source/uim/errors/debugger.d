@@ -2,21 +2,21 @@ module uim.cake.Error;
 
 import uim.cake.core.Configure;
 import uim.cake.core.InstanceConfigTrait;
-import uim.cake.errors.debugs.ArrayItemNode;
-import uim.cake.errors.debugs.ArrayNode;
-import uim.cake.errors.debugs.ClassNode;
-import uim.cake.errors.debugs.ConsoleFormatter;
-import uim.cake.errors.debugs.DebugContext;
-import uim.cake.errors.debugs.IFormatter;
-import uim.cake.errors.debugs.HtmlFormatter;
-import uim.cake.errors.debugs.INode;
-import uim.cake.errors.debugs.PropertyNode;
-import uim.cake.errors.debugs.ReferenceNode;
-import uim.cake.errors.debugs.ScalarNode;
-import uim.cake.errors.debugs.SpecialNode;
-import uim.cake.errors.debugs.TextFormatter;
-import uim.cake.errors.rendererss.HtmlErrorRenderer;
-import uim.cake.errors.rendererss.TextErrorRenderer;
+import uim.errors.debugs.ArrayItemNode;
+import uim.errors.debugs.ArrayNode;
+import uim.errors.debugs.ClassNode;
+import uim.errors.debugs.ConsoleFormatter;
+import uim.errors.debugs.DebugContext;
+import uim.errors.debugs.IFormatter;
+import uim.errors.debugs.HtmlFormatter;
+import uim.errors.debugs.INode;
+import uim.errors.debugs.PropertyNode;
+import uim.errors.debugs.ReferenceNode;
+import uim.errors.debugs.ScalarNode;
+import uim.errors.debugs.SpecialNode;
+import uim.errors.debugs.TextFormatter;
+import uim.errors.rendererss.HtmlErrorRenderer;
+import uim.errors.rendererss.TextErrorRenderer;
 import uim.cake.logs.Log;
 import uim.cake.utilities.Hash;
 import uim.cake.utilities.Security;
@@ -314,7 +314,7 @@ class Debugger
      * @param mixed $var The variable to dump.
      * @param int $maxDepth The depth to output to. Defaults to 3.
      * @return void
-     * @see uim.cake.errors.Debugger::exportVar()
+     * @see uim.errors.Debugger::exportVar()
      * @link https://book.cakephp.org/4/en/development/debugging.html#outputting-values
      */
     static void dump($var, int $maxDepth = 3) {
@@ -561,7 +561,7 @@ class Debugger
     /**
      * Get the configured export formatter or infer one based on the environment.
      *
-     * @return uim.cake.errors.debugs.IFormatter
+     * @return uim.errors.debugs.IFormatter
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
      */
@@ -637,7 +637,7 @@ class Debugger
      *
      * @param mixed $var Variable to convert.
      * @param int $maxDepth The depth to generate nodes to. Defaults to 3.
-     * @return uim.cake.errors.debugs.INode The root node of the tree.
+     * @return uim.errors.debugs.INode The root node of the tree.
      */
     static function exportVarAsNodes($var, int $maxDepth = 3): INode
     {
@@ -648,8 +648,8 @@ class Debugger
      * Protected export function used to keep track of indentation and recursion.
      *
      * @param mixed $var The variable to dump.
-     * @param uim.cake.errors.debugs.DebugContext $context Dump context
-     * @return uim.cake.errors.debugs.INode The dumped variable.
+     * @param uim.errors.debugs.DebugContext $context Dump context
+     * @return uim.errors.debugs.INode The dumped variable.
      */
     protected static function export($var, DebugContext $context): INode
     {
@@ -688,8 +688,8 @@ class Debugger
      * - schema
      *
      * @param array $var The array to export.
-     * @param uim.cake.errors.debugs.DebugContext $context The current dump context.
-     * @return uim.cake.errors.debugs.ArrayNode Exported array.
+     * @param uim.errors.debugs.DebugContext $context The current dump context.
+     * @return uim.errors.debugs.ArrayNode Exported array.
      */
     protected static function exportArray(array $var, DebugContext $context): ArrayNode
     {
@@ -724,9 +724,9 @@ class Debugger
      * Handles object to node conversion.
      *
      * @param object $var Object to convert.
-     * @param uim.cake.errors.debugs.DebugContext $context The dump context.
-     * @return uim.cake.errors.debugs.INode
-     * @see uim.cake.errors.Debugger::exportVar()
+     * @param uim.errors.debugs.DebugContext $context The dump context.
+     * @return uim.errors.debugs.INode
+     * @see uim.errors.Debugger::exportVar()
      */
     protected static function exportObject(object $var, DebugContext $context): INode
     {
@@ -896,7 +896,7 @@ class Debugger
      * Add a renderer to the current instance.
      *
      * @param string aName The alias for the the renderer.
-     * @param class-string<uim.cake.errors.ErrorRendererInterface> $class The classname of the renderer to use.
+     * @param class-string<uim.errors.ErrorRendererInterface> $class The classname of the renderer to use.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      */

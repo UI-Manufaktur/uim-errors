@@ -5,11 +5,11 @@
 
 
  * @since         4.4.0
-  */module uim.cake.errors.renderers;
+  */module uim.errors.renderers;
 
-import uim.cake.errors.Debugger;
-import uim.cake.errors.ErrorRendererInterface;
-import uim.cake.errors.PhpError;
+import uim.errors.Debugger;
+import uim.errors.ErrorRendererInterface;
+import uim.errors.PhpError;
 
 /**
  * Interactive HTML error rendering with a stack trace.

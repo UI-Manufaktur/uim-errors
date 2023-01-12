@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors.debugs.nodes;
+module uim.errors.debugs.nodes;
 
 // Dump node for object properties.
 class PropertyNode : INode {
@@ -15,7 +15,7 @@ class PropertyNode : INode {
     private $visibility;
 
     /**
-     * @var uim.cake.errors.debugs.INode
+     * @var uim.errors.debugs.INode
      */
     private myValue;
 
@@ -24,7 +24,7 @@ class PropertyNode : INode {
      *
      * @param string myName The property name
      * @param string|null $visibility The visibility of the property.
-     * @param uim.cake.errors.debugs.INode myValue The property value node.
+     * @param uim.errors.debugs.INode myValue The property value node.
      */
     this(string myName, Nullable!string visibility, INode myValue) {
         this.name = myName;
@@ -35,7 +35,7 @@ class PropertyNode : INode {
     /**
      * Get the value
      *
-     * @return uim.cake.errors.debugs.INode
+     * @return uim.errors.debugs.INode
      */
     INode getValue() {
       return this.value;

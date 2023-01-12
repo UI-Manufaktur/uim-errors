@@ -1,1 +1,1 @@
-module uim.cake.errors.debugs.nodes;
+module uim.errors.debugs.nodes;

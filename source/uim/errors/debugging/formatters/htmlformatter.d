@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors.debugs;
+module uim.errors.debugs;
 
 use RuntimeException;
 
@@ -75,7 +75,7 @@ class HtmlFormatter : IFormatter {
     /**
      * Convert a tree of INode objects into HTML
      *
-     * @param uim.cake.errors.debugs.INode myNode The node tree to dump.
+     * @param uim.errors.debugs.INode myNode The node tree to dump.
      */
     string dump(INode myNode) {
         $html = this.export(myNode, 0);
@@ -91,7 +91,7 @@ class HtmlFormatter : IFormatter {
     /**
      * Convert a tree of INode objects into HTML
      *
-     * @param uim.cake.errors.debugs.INode $var The node tree to dump.
+     * @param uim.errors.debugs.INode $var The node tree to dump.
      * @param int $indent The current indentation level.
      * @return string
      */
@@ -127,7 +127,7 @@ class HtmlFormatter : IFormatter {
     /**
      * Export an array type object
      *
-     * @param uim.cake.errors.debugs.ArrayNode $var The array to export.
+     * @param uim.errors.debugs.ArrayNode $var The array to export.
      * @param int $indent The current indentation level.
      * @return string Exported array.
      */
@@ -159,10 +159,10 @@ class HtmlFormatter : IFormatter {
     /**
      * Handles object to string conversion.
      *
-     * @param uim.cake.errors.debugs.ClassNode|uim.cake.errors.debugs.ReferenceNode $var Object to convert.
+     * @param uim.errors.debugs.ClassNode|uim.errors.debugs.ReferenceNode $var Object to convert.
      * @param int $indent The current indentation level.
      * @return string
-     * @see uim.cake.errors.Debugger::exportVar()
+     * @see uim.errors.Debugger::exportVar()
      */
     protected string exportObject($var, int $indent) {
         $objectId = "cake-db-object-{this.id}-{$var.getId()}";
