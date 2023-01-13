@@ -3,9 +3,9 @@ module uim.errors.renderers;
 @safe:
 import uim.errors;
 
-use PDOException;
+/* use PDOException;
 use Psr\Http\messages.IResponse;
-use Throwable;
+use Throwable; */
 
 /**
  * Web Exception Renderer.
