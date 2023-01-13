@@ -7,9 +7,9 @@
  * @since         4.4.0
   */module uim.errors.renderers;
 
-import uim.cake.consoles.ConsoleOutput;
-import uim.cake.core.Configure;
-import uim.cake.core.exceptions.UIMException;
+@safe:
+import uim.errors;
+
 use Psr\Http\messages.IServerRequest;
 use Throwable;
 
@@ -18,7 +18,7 @@ use Throwable;
  *
  * Useful in CI or plain text environments.
  *
- * @todo 5.0 Implement uim.errors.ExceptionRendererInterface. This implementation can"t implement
+ * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
 class ConsoleExceptionRenderer

@@ -140,17 +140,17 @@ class ErrorHandler : BaseErrorHandler
      *
      * @param \Throwable $exception The exception being rendered.
      * @param \Psr\Http\messages.IServerRequest|null $request The request.
-     * @return uim.errors.ExceptionRendererInterface The exception renderer.
+     * @return uim.errors.IExceptionRenderer The exception renderer.
      * @throws \RuntimeException When the renderer class cannot be found.
      */
     function getRenderer(
         Throwable $exception,
         ?IServerRequest $request = null
-    ): ExceptionRendererInterface {
+    ): IExceptionRenderer {
         $renderer = _config["exceptionRenderer"];
 
         if (is_string($renderer)) {
-            /** @var class-string<uim.errors.ExceptionRendererInterface>|null $class */
+            /** @var class-string<uim.errors.IExceptionRenderer>|null $class */
             $class = App::className($renderer, "Error");
             if (!$class) {
                 throw new RuntimeException(sprintf(

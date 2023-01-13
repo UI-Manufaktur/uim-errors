@@ -5,6 +5,9 @@
 **********************************************************************************************************/
 module uim.errors.debugs.nodes;
 
+@safe:
+import uim.errors;
+
 // Dump node for object properties.
 class PropertyNode : IERRNode {
     private string myName;

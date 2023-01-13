@@ -5,6 +5,9 @@
 **********************************************************************************************************/
 module uim.errors.debugs.nodes;
 
+@safe:
+import uim.errors;
+
 /**
  * Debug node for special messages like errors or recursion warnings.
  */

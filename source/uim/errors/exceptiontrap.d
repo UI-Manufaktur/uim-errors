@@ -102,7 +102,7 @@ class ExceptionTrap
      *
      * @param \Throwable $exception Exception to render
      * @param \Psr\Http\messages.IServerRequest|null $request The request if possible.
-     * @return uim.errors.ExceptionRendererInterface
+     * @return uim.errors.IExceptionRenderer
      */
     function renderer(Throwable $exception, $request = null) {
         $request = $request ?? Router::getRequest();
@@ -134,7 +134,7 @@ class ExceptionTrap
                 );
             }
 
-            /** @var class-string<uim.errors.ExceptionRendererInterface> $class */
+            /** @var class-string<uim.errors.IExceptionRenderer> $class */
             return new $class($exception, $request, _config);
         }
 
@@ -144,10 +144,10 @@ class ExceptionTrap
     /**
      * Choose an exception renderer based on config or the SAPI
      *
-     * @return class-string<uim.errors.ExceptionRendererInterface>
+     * @return class-string<uim.errors.IExceptionRenderer>
      */
     protected string chooseRenderer() {
-        /** @var class-string<uim.errors.ExceptionRendererInterface> */
+        /** @var class-string<uim.errors.IExceptionRenderer> */
         return PHP_SAPI == "cli" ? ConsoleExceptionRenderer::class : ExceptionRenderer::class;
     }
 

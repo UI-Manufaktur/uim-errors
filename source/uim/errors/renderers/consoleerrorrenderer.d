@@ -7,9 +7,9 @@
  * @since         4.4.0
   */module uim.errors.renderers;
 
-import uim.cake.consoles.ConsoleOutput;
-import uim.errors.ErrorRendererInterface;
-import uim.errors.PhpError;
+@safe:
+import uim.errors;
+
 
 /**
  * Plain text error rendering with a stack trace.

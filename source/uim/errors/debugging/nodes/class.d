@@ -5,9 +5,10 @@
 **********************************************************************************************************/
 module uim.errors.debugs.nodes;
 
-/**
- * Dump node for objects/class instances.
- */
+@safe:
+import uim.errors;
+
+// Dump node for objects/class instances.
 class ClassNode : IERRNode {
     private string myClass;
 

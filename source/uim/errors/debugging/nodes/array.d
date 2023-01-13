@@ -5,6 +5,9 @@
 **********************************************************************************************************/
 module uim.errors.debugs.nodes;
 
+@safe:
+import uim.errors;
+
 // Dump node for Array values.
 class DERRArrayNode : IERRNode {
   private DERRArrayItemNode _items;

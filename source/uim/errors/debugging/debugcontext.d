@@ -5,7 +5,10 @@
 **********************************************************************************************************/
 module uim.errors.debugs;
 
-use SplObjectStorage;
+@safe:
+import uim.errors;
+
+// use SplObjectStorage;
 
 /**
  * Context tracking for Debugger::exportVar()

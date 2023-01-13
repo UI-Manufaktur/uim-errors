@@ -5,6 +5,9 @@
 **********************************************************************************************************/
 module uim.errors.debugs.nodes;
 
+@safe:
+import uim.errors;
+
 /**
  * Interface for Debugs
  *

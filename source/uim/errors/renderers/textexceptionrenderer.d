@@ -7,14 +7,17 @@
  * @since         4.4.0
   */module uim.errors.renderers;
 
-use Throwable;
+@safe:
+import uim.errors;
+
+// suse Throwable;
 
 /**
  * Plain text exception rendering with a stack trace.
  *
  * Useful in CI or plain text environments.
  *
- * @todo 5.0 Implement uim.errors.ExceptionRendererInterface. This implementation can"t implement
+ * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
 class TextExceptionRenderer
