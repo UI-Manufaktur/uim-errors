@@ -1,14 +1,12 @@
 
-/*********************************************************************************************************
-	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors;
+vuim.cake.Error;
 
-@safe:
-import uim.errors;
-
+import uim.cake.core.Configure;
+import uim.cake.core.InstanceConfigTrait;
+import uim.cake.errors.rendererss.ConsoleErrorRenderer;
+import uim.cake.errors.rendererss.HtmlErrorRenderer;
+import uim.cake.events.EventDispatcherTrait;
+import uim.cake.routings.Router;
 use Exception;
 
 /**
@@ -58,7 +56,7 @@ class ErrorTrap
     /**
      * Choose an error renderer based on config or the SAPI
      *
-     * @return class-string<uim.errors.IErrorRenderer>
+     * @return class-string<uim.cake.errors.ErrorRendererInterface>
      */
     string function chooseErrorRenderer() {
         aConfig = this.getConfig("errorRenderer");
@@ -66,7 +64,7 @@ class ErrorTrap
             return aConfig;
         }
 
-        /** @var class-string<uim.errors.IErrorRenderer> */
+        /** @var class-string<uim.cake.errors.ErrorRendererInterface> */
         return PHP_SAPI == "cli" ? ConsoleErrorRenderer::class : HtmlErrorRenderer::class;
     }
 
@@ -141,7 +139,7 @@ class ErrorTrap
     /**
      * Logging helper method.
      *
-     * @param uim.errors.PhpError $error The error object to log.
+     * @param uim.cake.errors.PhpError $error The error object to log.
      */
     protected void logError(PhpError $error) {
         if (!_config["log"]) {
@@ -170,11 +168,11 @@ class ErrorTrap
     /**
      * Get an instance of the renderer.
      *
-     * @return uim.errors.IErrorRenderer
+     * @return uim.cake.errors.ErrorRendererInterface
      */
-    function renderer(): IErrorRenderer
+    function renderer(): ErrorRendererInterface
     {
-        /** @var class-string<uim.errors.IErrorRenderer> $class */
+        /** @var class-string<uim.cake.errors.ErrorRendererInterface> $class */
         $class = this.getConfig("errorRenderer") ?: this.chooseErrorRenderer();
 
         return new $class(_config);
@@ -183,7 +181,7 @@ class ErrorTrap
     /**
      * Get an instance of the logger.
      *
-     * @return uim.errors.ErrorLoggerInterface
+     * @return uim.cake.errors.ErrorLoggerInterface
      */
     function logger(): ErrorLoggerInterface
     {
@@ -193,7 +191,7 @@ class ErrorTrap
             this.setConfig(["logger": $oldConfig, "errorLogger": null]);
         }
 
-        /** @var class-string<uim.errors.ErrorLoggerInterface> $class */
+        /** @var class-string<uim.cake.errors.ErrorLoggerInterface> $class */
         $class = this.getConfig("logger", _defaultConfig["logger"]);
 
         return new $class(_config);

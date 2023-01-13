@@ -1,11 +1,11 @@
-module uim.errors.renderers;
+module uim.cake.errors.renderers;
 
 @safe:
-import uim.errors;
+import uim.cake;
 
-/* use PDOException;
+use PDOException;
 use Psr\Http\messages.IResponse;
-use Throwable; */
+use Throwable;
 
 /**
  * Web Exception Renderer.
@@ -24,7 +24,7 @@ use Throwable; */
  * Using a subclass of WebExceptionRenderer gives you full control over how Exceptions are rendered, you
  * can configure your class in your config/app.php.
  */
-class WebExceptionRenderer : IExceptionRenderer
+class WebExceptionRenderer : ExceptionRendererInterface
 {
     /**
      * The exception being handled.
@@ -36,7 +36,7 @@ class WebExceptionRenderer : IExceptionRenderer
     /**
      * Controller instance.
      *
-     * @var uim.cake.controllers.Controller
+     * var DCONController
      */
     protected $controller;
 
@@ -54,7 +54,7 @@ class WebExceptionRenderer : IExceptionRenderer
      * If set, this will be request used to create the controller that will render
      * the error.
      *
-     * @var uim.cake.http.ServerRequest|null
+     * var DHTP.ServerRequest|null
      */
     protected $request;
 
@@ -131,7 +131,7 @@ class WebExceptionRenderer : IExceptionRenderer
                 $class = App::className("Error", "Controller", "Controller");
             }
 
-            /** @var uim.cake.controllers.Controller $controller */
+            /** var DCONController $controller */
             $controller = new $class($request);
             $controller.startupProcess();
         } catch (Throwable $e) {

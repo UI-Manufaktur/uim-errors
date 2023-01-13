@@ -3,11 +3,29 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors;
+module uim.cake.Error;
 
-@safe:
-import uim.errors;
-
+import uim.cake.core.Configure;
+import uim.cake.core.InstanceConfigTrait;
+import uim.cake.errors.debugs.ArrayItemNode;
+import uim.cake.errors.debugs.ArrayNode;
+import uim.cake.errors.debugs.ClassNode;
+import uim.cake.errors.debugs.ConsoleFormatter;
+import uim.cake.errors.debugs.DebugContext;
+import uim.cake.errors.debugs.IFormatter;
+import uim.cake.errors.debugs.HtmlFormatter;
+import uim.cake.errors.debugs.INode;
+import uim.cake.errors.debugs.PropertyNode;
+import uim.cake.errors.debugs.ReferenceNode;
+import uim.cake.errors.debugs.ScalarNode;
+import uim.cake.errors.debugs.SpecialNode;
+import uim.cake.errors.debugs.TextFormatter;
+import uim.cake.errors.rendererss.HtmlErrorRenderer;
+import uim.cake.errors.rendererss.TextErrorRenderer;
+import uim.cake.logs.Log;
+import uim.cake.utilities.Hash;
+import uim.cake.utilities.Security;
+import uim.cake.utilities.Text;
 use Closure;
 use Exception;
 use InvalidArgumentException;
@@ -301,7 +319,7 @@ class Debugger
      * @param mixed $var The variable to dump.
      * @param int $maxDepth The depth to output to. Defaults to 3.
      * @return void
-     * @see uim.errors.Debugger::exportVar()
+     * @see uim.cake.errors.Debugger::exportVar()
      * @link https://book.cakephp.org/4/en/development/debugging.html#outputting-values
      */
     static void dump($var, int $maxDepth = 3) {
@@ -548,7 +566,7 @@ class Debugger
     /**
      * Get the configured export formatter or infer one based on the environment.
      *
-     * @return uim.errors.debugs.IFormatter
+     * @return uim.cake.errors.debugs.IFormatter
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
      */
@@ -624,9 +642,9 @@ class Debugger
      *
      * @param mixed $var Variable to convert.
      * @param int $maxDepth The depth to generate nodes to. Defaults to 3.
-     * @return uim.errors.debugs.IERRNode The root node of the tree.
+     * @return uim.cake.errors.debugs.INode The root node of the tree.
      */
-    static function exportVarAsNodes($var, int $maxDepth = 3): IERRNode
+    static function exportVarAsNodes($var, int $maxDepth = 3): INode
     {
         return static::export($var, new DebugContext($maxDepth));
     }
@@ -635,10 +653,10 @@ class Debugger
      * Protected export function used to keep track of indentation and recursion.
      *
      * @param mixed $var The variable to dump.
-     * @param uim.errors.debugs.DebugContext $context Dump context
-     * @return uim.errors.debugs.IERRNode The dumped variable.
+     * @param uim.cake.errors.debugs.DebugContext $context Dump context
+     * @return uim.cake.errors.debugs.INode The dumped variable.
      */
-    protected static function export($var, DebugContext $context): IERRNode
+    protected static function export($var, DebugContext $context): INode
     {
         $type = static::getType($var);
         switch ($type) {
@@ -675,8 +693,8 @@ class Debugger
      * - schema
      *
      * @param array $var The array to export.
-     * @param uim.errors.debugs.DebugContext $context The current dump context.
-     * @return uim.errors.debugs.ArrayNode Exported array.
+     * @param uim.cake.errors.debugs.DebugContext $context The current dump context.
+     * @return uim.cake.errors.debugs.ArrayNode Exported array.
      */
     protected static function exportArray(array $var, DebugContext $context): ArrayNode
     {
@@ -695,10 +713,10 @@ class Debugger
                     // Likely recursion, so we increase depth.
                     $node = static::export($val, $context.withAddedDepth());
                 }
-                $items[] = new DERRArrayItemNode(static::export($key, $context), $node);
+                $items[] = new ArrayItemNode(static::export($key, $context), $node);
             }
         } else {
-            $items[] = new DERRArrayItemNode(
+            $items[] = new ArrayItemNode(
                 new ScalarNode('string', ''),
                 new SpecialNode('[maximum depth reached]')
             );
@@ -711,11 +729,11 @@ class Debugger
      * Handles object to node conversion.
      *
      * @param object $var Object to convert.
-     * @param uim.errors.debugs.DebugContext $context The dump context.
-     * @return uim.errors.debugs.IERRNode
-     * @see uim.errors.Debugger::exportVar()
+     * @param uim.cake.errors.debugs.DebugContext $context The dump context.
+     * @return uim.cake.errors.debugs.INode
+     * @see uim.cake.errors.Debugger::exportVar()
      */
-    protected static function exportObject(object $var, DebugContext $context): IERRNode
+    protected static function exportObject(object $var, DebugContext $context): INode
     {
         $isRef = $context.hasReference($var);
         $refNum = $context.getReferenceId($var);
@@ -883,15 +901,15 @@ class Debugger
      * Add a renderer to the current instance.
      *
      * @param string aName The alias for the the renderer.
-     * @param class-string<uim.errors.IErrorRenderer> $class The classname of the renderer to use.
+     * @param class-string<uim.cake.errors.ErrorRendererInterface> $class The classname of the renderer to use.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      */
     static void addRenderer(string aName, string $class) {
         deprecationWarning('Debugger::addRenderer() is deprecated.');
-        if (!hasAllValues(IErrorRenderer::class, class_implements($class))) {
+        if (!hasAllValues(ErrorRendererInterface::class, class_implements($class))) {
             throw new InvalidArgumentException(
-                'Invalid renderer class. $class must implement ' . IErrorRenderer::class
+                'Invalid renderer class. $class must implement ' . ErrorRendererInterface::class
             );
         }
         $self = Debugger::getInstance();

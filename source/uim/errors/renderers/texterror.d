@@ -3,38 +3,33 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.renderers;
+module uim.errors.renderers.text;
 
 @safe:
 import uim.errors;
-
 
 /**
  * Plain text error rendering with a stack trace.
  *
  * Useful in CLI environments.
  */
-class TextErrorRenderer : ErrorRendererInterface
-{
+class TextErrorRenderer : IErrorRenderer {
 
-    void write(string $out) {
-        echo $out;
-    }
+  void write(string outText) {
+    writeln(outText);
+  }
 
+  string render(PhpError $error, bool isDebug) {
+    if (!isDebug) { return ""; }
 
-    string render(PhpError $error, bool $debug) {
-        if (!$debug) {
-            return "";
-        }
-
-        return sprintf(
-            "%s: %s :: %s on line %s of %s\nTrace:\n%s",
-            $error.getLabel(),
-            $error.getCode(),
-            $error.getMessage(),
-            $error.getLine() ?? "",
-            $error.getFile() ?? "",
-            $error.getTraceAsString(),
-        );
-    }
+    // isDebug
+    return 
+      "%s: %s :: %s on line %s of %s\nTrace:\n%s".format(
+        $error.getLabel(),
+        $error.getCode(),
+        $error.getMessage(),
+        $error.getLine() ?? "",
+        $error.getFile() ?? "",
+        $error.getTraceAsString());
+  }
 }

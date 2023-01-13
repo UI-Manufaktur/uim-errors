@@ -3,10 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors;
-
-@safe:
-import uim.errors;
+module uim.cake.Error;
 
 /**
  * Interface for PHP error rendering implementations
@@ -14,12 +11,12 @@ import uim.errors;
  * The core provided implementations of this interface are used
  * by Debugger and ErrorTrap to render PHP errors.
  */
-interface IErrorRenderer
+interface ErrorRendererInterface
 {
     /**
      * Render output for the provided error.
      *
-     * @param uim.errors.PhpError $error The error to be rendered.
+     * @param uim.cake.errors.PhpError $error The error to be rendered.
      * @param bool $debug Whether or not the application is in debug mode.
      * @return string The output to be echoed.
      */

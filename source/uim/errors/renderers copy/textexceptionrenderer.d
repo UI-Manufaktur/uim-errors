@@ -1,21 +1,20 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors.renderers;
 
-@safe:
-import uim.errors;
 
-// suse Throwable;
+
+ *
+
+
+ * @since         4.4.0
+  */module uim.cake.errors.renderers;
+
+use Throwable;
 
 /**
  * Plain text exception rendering with a stack trace.
  *
  * Useful in CI or plain text environments.
  *
- * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
+ * @todo 5.0 Implement uim.cake.errors.ExceptionRendererInterface. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
 class TextExceptionRenderer

@@ -1,62 +1,63 @@
-module uim.errors.renderers;
+/*********************************************************************************************************
+	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module uim.cake.errors;
 
 @safe:
-import uim.errors;
-
-/* use PDOException;
-use Psr\Http\messages.IResponse;
-use Throwable; */
+import uim.safe;
 
 /**
- * Web Exception Renderer.
+ * Exception Renderer.
  *
  * Captures and handles all unhandled exceptions. Displays helpful framework errors when debug is true.
- * When debug is false, WebExceptionRenderer will render 404 or 500 errors. If an uncaught exception is thrown
- * and it is a type that WebExceptionHandler does not know about it will be treated as a 500 error.
+ * When debug is false a ExceptionRenderer will render 404 or 500 errors. If an uncaught exception is thrown
+ * and it is a type that ExceptionHandler does not know about it will be treated as a 500 error.
  *
  * ### Implementing application specific exception rendering
  *
  * You can implement application specific exception handling by creating a subclass of
- * WebExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.php
+ * ExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.php
  *
- * #### Using a subclass of WebExceptionRenderer
+ * #### Using a subclass of ExceptionRenderer
  *
- * Using a subclass of WebExceptionRenderer gives you full control over how Exceptions are rendered, you
+ * Using a subclass of ExceptionRenderer gives you full control over how Exceptions are rendered, you
  * can configure your class in your config/app.php.
  */
-class WebExceptionRenderer : IExceptionRenderer
+class ExceptionRenderer : IExceptionRenderer
 {
     /**
      * The exception being handled.
      *
      * @var \Throwable
      */
-    protected $error;
+    protected myError;
 
     /**
      * Controller instance.
      *
-     * @var uim.cake.controllers.Controller
+     * var DCONController
      */
-    protected $controller;
+    protected controller;
 
     /**
      * Template to render for {@link uim.cake.Core\exceptions.UIMException}
      */
-    protected string $template = "";
+    protected string myTemplate = "";
 
     /**
      * The method corresponding to the Exception this object is for.
      */
-    protected string $method = "";
+    protected string method = "";
 
     /**
      * If set, this will be request used to create the controller that will render
      * the error.
      *
-     * @var uim.cake.http.ServerRequest|null
+     * var DHTP.ServerRequest|null
      */
-    protected $request;
+    protected myRequest;
 
     /**
      * Map of exceptions to http status codes.
@@ -67,7 +68,7 @@ class WebExceptionRenderer : IExceptionRenderer
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    protected $exceptionHttpCodes = [
+    protected myExceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException::class: 404,
         MissingActionException::class: 404,
@@ -83,13 +84,13 @@ class WebExceptionRenderer : IExceptionRenderer
     /**
      * Creates the controller to perform rendering on the error response.
      *
-     * @param \Throwable $exception Exception.
-     * @param uim.cake.http.ServerRequest|null $request The request if this is set it will be used
+     * @param \Throwable myException Exception.
+     * @param uim.cake.http.ServerRequest|null myRequest The request if this is set it will be used
      *   instead of creating a new one.
      */
-    this(Throwable $exception, ?ServerRequest $request = null) {
-        this.error = $exception;
-        this.request = $request;
+    this(Throwable myException, ?ServerRequest myRequest = null) {
+        this.error = myException;
+        this.request = myRequest;
         this.controller = _getController();
     }
 
@@ -102,53 +103,52 @@ class WebExceptionRenderer : IExceptionRenderer
      * @return uim.cake.controllers.Controller
      * @triggers Controller.startup $controller
      */
-    protected function _getController(): Controller
-    {
-        $request = this.request;
+    protected Controller _getController() {
+        myRequest = this.request;
         $routerRequest = Router::getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
-        if ($request == null) {
-            $request = $routerRequest ?: ServerRequestFactory::fromGlobals();
+        if (myRequest is null) {
+            myRequest = $routerRequest ?: ServerRequestFactory::fromGlobals();
         }
 
         // If the current request doesn"t have routing data, but we
         // found a request in the router context copy the params over
-        if ($request.getParam("controller") == null && $routerRequest != null) {
-            $request = $request.withAttribute("params", $routerRequest.getAttribute("params"));
+        if (myRequest.getParam("controller") is null && $routerRequest  !is null) {
+            myRequest = myRequest.withAttribute("params", $routerRequest.getAttribute("params"));
         }
 
-        $errorOccured = false;
+        myErrorOccured = false;
         try {
-            $params = $request.getAttribute("params");
-            $params["controller"] = "Error";
+            myParams = myRequest.getAttribute("params");
+            myParams["controller"] = "Error";
 
             $factory = new ControllerFactory(new Container());
-            $class = $factory.getControllerClass($request.withAttribute("params", $params));
+            myClass = $factory.getControllerClass(myRequest.withAttribute("params", myParams));
 
-            if (!$class) {
-                /** @var string $class */
-                $class = App::className("Error", "Controller", "Controller");
+            if (!myClass) {
+                /** @var string myClass */
+                myClass = App::className("Error", "Controller", "Controller");
             }
 
-            /** @var uim.cake.controllers.Controller $controller */
-            $controller = new $class($request);
+            /** var DCONController $controller */
+            $controller = new myClass(myRequest);
             $controller.startupProcess();
         } catch (Throwable $e) {
-            $errorOccured = true;
+            myErrorOccured = true;
         }
 
         if (!isset($controller)) {
-            return new Controller($request);
+            return new Controller(myRequest);
         }
 
         // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
-        if ($errorOccured && isset($controller.RequestHandler)) {
+        if (myErrorOccured && isset($controller.RequestHandler)) {
             try {
-                $event = new Event("Controller.startup", $controller);
-                $controller.RequestHandler.startup($event);
+                myEvent = new Event("Controller.startup", $controller);
+                $controller.RequestHandler.startup(myEvent);
             } catch (Throwable $e) {
             }
         }
@@ -158,6 +158,8 @@ class WebExceptionRenderer : IExceptionRenderer
 
     /**
      * Clear output buffers so error pages display properly.
+     *
+     * @return void
      */
     protected void clearOutput() {
         if (hasAllValues(PHP_SAPI, ["cli", "phpdbg"])) {
@@ -171,62 +173,53 @@ class WebExceptionRenderer : IExceptionRenderer
     /**
      * Renders the response for the exception.
      *
-     * @return uim.cake.http.Response The response to be sent.
+     * @return The response to be sent.
      */
-    function render(): IResponse
-    {
-        $exception = this.error;
-        $code = this.getHttpCode($exception);
-        $method = _method($exception);
-        $template = _template($exception, $method, $code);
+    IResponse render() {
+        myException = this.error;
+        $code = this.getHttpCode(myException);
+        $method = _method(myException);
+        myTemplate = _template(myException, $method, $code);
         this.clearOutput();
 
         if (method_exists(this, $method)) {
-            return _customMethod($method, $exception);
+            return _customMethod($method, myException);
         }
 
-        $message = _message($exception, $code);
-        $url = this.controller.getRequest().getRequestTarget();
+        myMessage = _message(myException, $code);
+        myUrl = this.controller.getRequest().getRequestTarget();
         $response = this.controller.getResponse();
 
-        if ($exception instanceof UIMException) {
+        if (myException instanceof UIMException) {
             /** @psalm-suppress DeprecatedMethod */
-            foreach ((array)$exception.responseHeader() as $key: $value) {
-                $response = $response.withHeader($key, $value);
+            foreach ((array)myException.responseHeader() as myKey: myValue) {
+                $response = $response.withHeader(myKey, myValue);
             }
         }
-        if ($exception instanceof HttpException) {
-            foreach ($exception.getHeaders() as $name: $value) {
-                $response = $response.withHeader($name, $value);
+        if (myException instanceof HttpException) {
+            foreach (myException.getHeaders() as myName: myValue) {
+                $response = $response.withHeader(myName, myValue);
             }
         }
         $response = $response.withStatus($code);
 
-        $exceptions = [$exception];
-        $previous = $exception.getPrevious();
-        while ($previous != null) {
-            $exceptions[] = $previous;
-            $previous = $previous.getPrevious();
-        }
-
         $viewVars = [
-            "message": $message,
-            "url": h($url),
-            "error": $exception,
-            "exceptions": $exceptions,
-            "code": $code,
+            "message":myMessage,
+            "url":h(myUrl),
+            "error":myException,
+            "code":$code,
         ];
         $serialize = ["message", "url", "code"];
 
         $isDebug = Configure::read("debug");
         if ($isDebug) {
-            $trace = (array)Debugger::formatTrace($exception.getTrace(), [
-                "format": "array",
-                "args": true,
+            $trace = (array)Debugger::formatTrace(myException.getTrace(), [
+                "format":"array",
+                "args":false,
             ]);
             $origin = [
-                "file": $exception.getFile() ?: "null",
-                "line": $exception.getLine() ?: "null",
+                "file":myException.getFile() ?: "null",
+                "line":myException.getLine() ?: "null",
             ];
             // Traces don"t include the origin file/line.
             array_unshift($trace, $origin);
@@ -238,55 +231,39 @@ class WebExceptionRenderer : IExceptionRenderer
         this.controller.set($viewVars);
         this.controller.viewBuilder().setOption("serialize", $serialize);
 
-        if ($exception instanceof UIMException && $isDebug) {
-            this.controller.set($exception.getAttributes());
+        if (myException instanceof UIMException && $isDebug) {
+            this.controller.set(myException.getAttributes());
         }
         this.controller.setResponse($response);
 
-        return _outputMessage($template);
-    }
-
-    /**
-     * Emit the response content
-     *
-     * @param \Psr\Http\messages.IResponse|string $output The response to output.
-     */
-    void write($output) {
-        if (is_string($output)) {
-            writeln($output;
-
-            return;
-        }
-
-        $emitter = new ResponseEmitter();
-        $emitter.emit($output);
+        return _outputMessage(myTemplate);
     }
 
     /**
      * Render a custom error method/template.
      *
-     * @param string $method The method name to invoke.
-     * @param \Throwable $exception The exception to render.
+     * @param string method The method name to invoke.
+     * @param \Throwable myException The exception to render.
      * @return uim.cake.http.Response The response to send.
      */
-    protected function _customMethod(string $method, Throwable $exception): Response
-    {
-        $result = this.{$method}($exception);
+    protected Response _customMethod(string method, Throwable myException) {
+        myResult = this.{$method}(myException);
         _shutdown();
-        if (is_string($result)) {
-            $result = this.controller.getResponse().withStringBody($result);
+        if (is_string(myResult)) {
+            myResult = this.controller.getResponse().withStringBody(myResult);
         }
 
-        return $result;
+        return myResult;
     }
 
     /**
      * Get method name
      *
-     * @param \Throwable $exception Exception instance.
+     * @param \Throwable myException Exception instance.
+     * @return string
      */
-    protected string _method(Throwable $exception) {
-        [, $baseClass] = namespaceSplit(get_class($exception));
+    protected string _method(Throwable myException) {
+        [, $baseClass] = moduleSplit(get_class(myException));
 
         if (substr($baseClass, -9) == "Exception") {
             $baseClass = substr($baseClass, 0, -9);
@@ -301,41 +278,41 @@ class WebExceptionRenderer : IExceptionRenderer
     /**
      * Get error message.
      *
-     * @param \Throwable $exception Exception.
+     * @param \Throwable myException Exception.
      * @param int $code Error code.
      * @return string Error message
      */
-    protected string _message(Throwable $exception, int $code) {
-        $message = $exception.getMessage();
+    protected string _message(Throwable myException, int $code) {
+        myMessage = myException.getMessage();
 
         if (
             !Configure::read("debug") &&
-            !($exception instanceof HttpException)
+            !(myException instanceof HttpException)
         ) {
             if ($code < 500) {
-                $message = __d("cake", "Not Found");
+                myMessage = __d("cake", "Not Found");
             } else {
-                $message = __d("cake", "An Internal Error Has Occurred.");
+                myMessage = __d("cake", "An Internal Error Has Occurred.");
             }
         }
 
-        return $message;
+        return myMessage;
     }
 
     /**
      * Get template for rendering exception info.
      *
-     * @param \Throwable $exception Exception instance.
-     * @param string $method Method name.
+     * @param \Throwable myException Exception instance.
+     * @param string method Method name.
      * @param int $code Error code.
      * @return string Template name
      */
-    protected string _template(Throwable $exception, string $method, int $code) {
-        if ($exception instanceof HttpException || !Configure::read("debug")) {
+    protected string _template(Throwable myException, string method, int $code) {
+        if (myException instanceof HttpException || !Configure::read("debug")) {
             return this.template = $code < 500 ? "error400" : "error500";
         }
 
-        if ($exception instanceof PDOException) {
+        if (myException instanceof PDOException) {
             return this.template = "pdo_error";
         }
 
@@ -345,34 +322,33 @@ class WebExceptionRenderer : IExceptionRenderer
     /**
      * Gets the appropriate http status code for exception.
      *
-     * @param \Throwable $exception Exception.
+     * @param \Throwable myException Exception.
      * @return int A valid HTTP status code.
      */
-    protected int getHttpCode(Throwable $exception) {
-        if ($exception instanceof HttpException) {
-            return $exception.getCode();
+    protected int getHttpCode(Throwable myException) {
+        if (myException instanceof HttpException) {
+            return myException.getCode();
         }
 
-        return this.exceptionHttpCodes[get_class($exception)] ?? 500;
+        return this.exceptionHttpCodes[get_class(myException)] ?? 500;
     }
 
     /**
      * Generate the response using the controller object.
      *
-     * @param string $template The template to render.
+     * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
      */
-    protected function _outputMessage(string $template): Response
-    {
+    protected Response _outputMessage(string myTemplate) {
         try {
-            this.controller.render($template);
+            this.controller.render(myTemplate);
 
             return _shutdown();
         } catch (MissingTemplateException $e) {
             $attributes = $e.getAttributes();
             if (
                 $e instanceof MissingLayoutException ||
-                strpos($attributes["file"], "error500") != false
+                indexOf($attributes["file"], "error500") != false
             ) {
                 return _outputMessageSafe("error500");
             }
@@ -385,12 +361,8 @@ class WebExceptionRenderer : IExceptionRenderer
             }
 
             return _outputMessageSafe("error500");
-        } catch (Throwable $outer) {
-            try {
-                return _outputMessageSafe("error500");
-            } catch (Throwable $inner) {
-                throw $outer;
-            }
+        } catch (Throwable $e) {
+            return _outputMessageSafe("error500");
         }
     }
 
@@ -398,13 +370,12 @@ class WebExceptionRenderer : IExceptionRenderer
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn"t call component methods.
      *
-     * @param string $template The template to render.
+     * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
      */
-    protected function _outputMessageSafe(string $template): Response
-    {
-        $builder = this.controller.viewBuilder();
-        $builder
+    protected Response _outputMessageSafe(string myTemplate) {
+        myBuilder = this.controller.viewBuilder();
+        myBuilder
             .setHelpers([], false)
             .setLayoutPath("")
             .setTemplatePath("Error");
@@ -412,7 +383,7 @@ class WebExceptionRenderer : IExceptionRenderer
 
         $response = this.controller.getResponse()
             .withType("html")
-            .withStringBody($view.render($template, "error"));
+            .withStringBody($view.render(myTemplate, "error"));
         this.controller.setResponse($response);
 
         return $response;
@@ -425,8 +396,7 @@ class WebExceptionRenderer : IExceptionRenderer
      *
      * @return uim.cake.http.Response The response to serve.
      */
-    protected function _shutdown(): Response
-    {
+    protected Response _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
         return this.controller.getResponse();
@@ -440,11 +410,11 @@ class WebExceptionRenderer : IExceptionRenderer
      */
     array __debugInfo() {
         return [
-            "error": this.error,
-            "request": this.request,
-            "controller": this.controller,
-            "template": this.template,
-            "method": this.method,
+            "error":this.error,
+            "request":this.request,
+            "controller":this.controller,
+            "template":this.template,
+            "method":this.method,
         ];
     }
 }

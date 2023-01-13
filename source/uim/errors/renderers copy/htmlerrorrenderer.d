@@ -1,20 +1,22 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors.renderers;
 
-@safe:
-import uim.errors;
 
+
+ *
+
+
+ * @since         4.4.0
+  */module uim.cake.errors.renderers;
+
+import uim.cake.errors.Debugger;
+import uim.cake.errors.ErrorRendererInterface;
+import uim.cake.errors.PhpError;
 
 /**
  * Interactive HTML error rendering with a stack trace.
  *
  * Default output renderer for non CLI SAPI.
  */
-class HtmlErrorRenderer : IErrorRenderer
+class HtmlErrorRenderer : ErrorRendererInterface
 {
 
     void write(string $out) {

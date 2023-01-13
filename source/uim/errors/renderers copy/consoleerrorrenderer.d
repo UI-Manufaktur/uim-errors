@@ -1,23 +1,25 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors.renderers;
 
-@safe:
-import uim.errors;
 
+
+ *
+
+
+ * @since         4.4.0
+  */module uim.cake.errors.renderers;
+
+import uim.cake.consoles.ConsoleOutput;
+import uim.cake.errors.ErrorRendererInterface;
+import uim.cake.errors.PhpError;
 
 /**
  * Plain text error rendering with a stack trace.
  *
  * Writes to STDERR via a Cake\Console\ConsoleOutput instance for console environments
  */
-class ConsoleErrorRenderer : IErrorRenderer
+class ConsoleErrorRenderer : ErrorRendererInterface
 {
     /**
-     * @var DCONConsoleOutput
+     * DCONConsoleOutput
      */
     protected $output;
 
