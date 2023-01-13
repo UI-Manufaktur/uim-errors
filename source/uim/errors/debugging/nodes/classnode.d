@@ -8,7 +8,7 @@ module uim.errors.debugs.nodes;
 /**
  * Dump node for objects/class instances.
  */
-class ClassNode : INode {
+class ClassNode : IERRNode {
     private string _className;
 
     private int $id;
@@ -52,7 +52,7 @@ class ClassNode : INode {
      *
      * @return array<uim.errors.debugs.PropertyNode>
      */
-    INode[] getChildren() {
+    IERRNode[] getChildren() {
         return this.properties;
     }
 }

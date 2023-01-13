@@ -73,11 +73,11 @@ class HtmlFormatter : IFormatter {
     }
 
     /**
-     * Convert a tree of INode objects into HTML
+     * Convert a tree of IERRNode objects into HTML
      *
-     * @param uim.errors.debugs.INode myNode The node tree to dump.
+     * @param uim.errors.debugs.IERRNode myNode The node tree to dump.
      */
-    string dump(INode myNode) {
+    string dump(IERRNode myNode) {
         $html = this.export(myNode, 0);
         $head = "";
         if (!static::$outputHeader) {
@@ -89,13 +89,13 @@ class HtmlFormatter : IFormatter {
     }
 
     /**
-     * Convert a tree of INode objects into HTML
+     * Convert a tree of IERRNode objects into HTML
      *
-     * @param uim.errors.debugs.INode $var The node tree to dump.
+     * @param uim.errors.debugs.IERRNode $var The node tree to dump.
      * @param int $indent The current indentation level.
      * @return string
      */
-    protected string export(INode $var, int $indent) {
+    protected string export(IERRNode $var, int $indent) {
         if ($var instanceof ScalarNode) {
             switch ($var.getType()) {
                 case "bool":

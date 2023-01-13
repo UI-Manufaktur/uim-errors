@@ -12,7 +12,7 @@ module uim.errors.debugs.nodes;
  * a reference node can be used after an object has been seen the
  * first time.
  */
-class ReferenceNode : INode {
+class ReferenceNode : IERRNode {
     private string myClass;
 
     /**
@@ -46,7 +46,7 @@ class ReferenceNode : INode {
     }
 
 
-    INode[] getChildren() {
+    IERRNode[] getChildren() {
         return [];
     }
 }

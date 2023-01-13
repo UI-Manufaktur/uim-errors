@@ -10,9 +10,9 @@ module uim.errors.debugs.nodes;
  *
  * Provides methods to look at contained value and iterate child nodes in the tree.
  */
-interface INode {
+interface IERRNode {
     // Get the child nodes of this node.
-    INode[] getChildren();
+    IERRNode[] getChildren();
 
     /**
      * Get the contained value.

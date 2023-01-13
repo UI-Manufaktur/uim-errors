@@ -82,24 +82,24 @@ class ConsoleFormatter : IFormatter {
     }
 
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IERRNode objects into a plain text string.
      *
-     * @param uim.errors.debugs.INode myNode The node tree to dump.
+     * @param uim.errors.debugs.IERRNode myNode The node tree to dump.
      */
-    string dump(INode myNode) {
+    string dump(IERRNode myNode) {
         $indent = 0;
 
         return this.export(myNode, $indent);
     }
 
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IERRNode objects into a plain text string.
      *
-     * @param uim.errors.debugs.INode $var The node tree to dump.
+     * @param uim.errors.debugs.IERRNode $var The node tree to dump.
      * @param int $indent The current indentation level.
      * @return string
      */
-    protected string export(INode $var, int $indent) {
+    protected string export(IERRNode $var, int $indent) {
         if ($var instanceof ScalarNode) {
             switch ($var.getType()) {
                 case "bool":

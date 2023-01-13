@@ -6,15 +6,15 @@
 module uim.errors.debugs.nodes;
 
 // Dump node for Array values.
-class ArrayNode : INode {
-  private ArrayItemNode _items;
+class DERRArrayNode : IERRNode {
+  private DERRArrayItemNode _items;
 
   /**
     * Constructor
     *
-    * @param array<uim.errors.debugs.ArrayItemNode> myItems The items for the array
+    * @param array<uim.errors.debugs.DERRArrayItemNode> myItems The items for the array
     */
-  this(INode[] someItems = null) {
+  this(IERRNode[] someItems = null) {
     _items = [];
     foreach (myItem; someItems) {
       this.add(myItem);
@@ -26,17 +26,17 @@ class ArrayNode : INode {
     *
     * aNode - The item to add.
     */
-  void add(ArrayItemNode aNode) {
+  void add(DERRArrayItemNode aNode) {
     _items ~= aNode;
   }
 
   // Get the contained items
-  ArrayItemNode getValue() {
+  DERRArrayItemNode getValue() {
       return this.items;
   }
 
   // Get Item nodes
-  INode[]  getChildren() {
+  IERRNode[]  getChildren() {
     return this.items;
   }
 }

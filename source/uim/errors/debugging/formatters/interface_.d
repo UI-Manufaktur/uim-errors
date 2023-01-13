@@ -12,10 +12,10 @@ module uim.errors.debugs;
  */
 interface IFormatter {
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IERRNode objects into a plain text string.
      * aNode - The node tree to dump.
      */
-    string dump(INode aNode);
+    string dump(IERRNode aNode);
 
     /**
      * Output a dump wrapper with location context.

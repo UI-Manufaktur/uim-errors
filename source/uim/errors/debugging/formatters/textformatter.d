@@ -34,24 +34,24 @@ TEXT;
     }
 
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IERRNode objects into a plain text string.
      *
-     * @param uim.errors.debugs.INode myNode The node tree to dump.
+     * @param uim.errors.debugs.IERRNode myNode The node tree to dump.
      */
-    string dump(INode myNode) {
+    string dump(IERRNode myNode) {
         auto myIndent = 0;
 
         return this.export(myNode, myIndent);
     }
 
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IERRNode objects into a plain text string.
      *
-     * @param uim.errors.debugs.INode $var The node tree to dump.
+     * @param uim.errors.debugs.IERRNode $var The node tree to dump.
      * @param int aIndent The current indentation level.
      * @return string
      */
-    protected string export(INode aNode, int anIndent) {
+    protected string export(IERRNode aNode, int anIndent) {
         if (auto scalarNode = cast(ScalarNode)aNode) {
           switch (scalarNode.getType()) {
             case "bool":

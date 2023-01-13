@@ -2,14 +2,14 @@ module uim.cake.Error;
 
 import uim.cake.core.Configure;
 import uim.cake.core.InstanceConfigTrait;
-import uim.errors.debugs.ArrayItemNode;
+import uim.errors.debugs.DERRArrayItemNode;
 import uim.errors.debugs.ArrayNode;
 import uim.errors.debugs.ClassNode;
 import uim.errors.debugs.ConsoleFormatter;
 import uim.errors.debugs.DebugContext;
 import uim.errors.debugs.IFormatter;
 import uim.errors.debugs.HtmlFormatter;
-import uim.errors.debugs.INode;
+import uim.errors.debugs.IERRNode;
 import uim.errors.debugs.PropertyNode;
 import uim.errors.debugs.ReferenceNode;
 import uim.errors.debugs.ScalarNode;
@@ -637,9 +637,9 @@ class Debugger
      *
      * @param mixed $var Variable to convert.
      * @param int $maxDepth The depth to generate nodes to. Defaults to 3.
-     * @return uim.errors.debugs.INode The root node of the tree.
+     * @return uim.errors.debugs.IERRNode The root node of the tree.
      */
-    static function exportVarAsNodes($var, int $maxDepth = 3): INode
+    static function exportVarAsNodes($var, int $maxDepth = 3): IERRNode
     {
         return static::export($var, new DebugContext($maxDepth));
     }
@@ -649,9 +649,9 @@ class Debugger
      *
      * @param mixed $var The variable to dump.
      * @param uim.errors.debugs.DebugContext $context Dump context
-     * @return uim.errors.debugs.INode The dumped variable.
+     * @return uim.errors.debugs.IERRNode The dumped variable.
      */
-    protected static function export($var, DebugContext $context): INode
+    protected static function export($var, DebugContext $context): IERRNode
     {
         $type = static::getType($var);
         switch ($type) {
@@ -708,10 +708,10 @@ class Debugger
                     // Likely recursion, so we increase depth.
                     $node = static::export($val, $context.withAddedDepth());
                 }
-                $items[] = new ArrayItemNode(static::export($key, $context), $node);
+                $items[] = new DERRArrayItemNode(static::export($key, $context), $node);
             }
         } else {
-            $items[] = new ArrayItemNode(
+            $items[] = new DERRArrayItemNode(
                 new ScalarNode('string', ''),
                 new SpecialNode('[maximum depth reached]')
             );
@@ -725,10 +725,10 @@ class Debugger
      *
      * @param object $var Object to convert.
      * @param uim.errors.debugs.DebugContext $context The dump context.
-     * @return uim.errors.debugs.INode
+     * @return uim.errors.debugs.IERRNode
      * @see uim.errors.Debugger::exportVar()
      */
-    protected static function exportObject(object $var, DebugContext $context): INode
+    protected static function exportObject(object $var, DebugContext $context): IERRNode
     {
         $isRef = $context.hasReference($var);
         $refNum = $context.getReferenceId($var);

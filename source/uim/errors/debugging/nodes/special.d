@@ -8,7 +8,7 @@ module uim.errors.debugs.nodes;
 /**
  * Debug node for special messages like errors or recursion warnings.
  */
-class SpecialNode : INode {
+class SpecialNode : IERRNode {
     /**
      * @var string
      */
@@ -31,7 +31,7 @@ class SpecialNode : INode {
     }
 
 
-    INode[] getChildren() {
+    IERRNode[] getChildren() {
         return [];
     }
 }

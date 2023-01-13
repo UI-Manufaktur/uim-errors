@@ -6,10 +6,10 @@
 module uim.errors.debugs.nodes;
 
 // Dump node for Array Items.
-class ArrayItemNode : INode {
-  private INode _key;
+class DERRArrayItemNode : IERRNode {
+  private IERRNode _key;
 
-  private INode _value;
+  private IERRNode _value;
 
   /**
     * Constructor
@@ -17,22 +17,22 @@ class ArrayItemNode : INode {
     * aKey - The node for the item key
     * aValue - The node for the array value
     */
-  this(INode aKey, INode aValue) {
+  this(IERRNode aKey, IERRNode aValue) {
       _key = aKey;
       _value = myValue;
   }
 
   // Get value
-  @property INode value() {
+  @property IERRNode value() {
     return _value;
   }
 
   // Get the key
-  @property INode key() {
+  @property IERRNode key() {
     return _key;
   }
 
-  INode[] getChildren() {
+  IERRNode[] getChildren() {
     return [this.value];
   }
 }

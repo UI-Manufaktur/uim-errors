@@ -6,7 +6,7 @@
 module uim.errors.debugs.nodes;
 
 // Dump node for object properties.
-class PropertyNode : INode {
+class PropertyNode : IERRNode {
     private string myName;
 
     /**
@@ -15,7 +15,7 @@ class PropertyNode : INode {
     private $visibility;
 
     /**
-     * @var uim.errors.debugs.INode
+     * @var uim.errors.debugs.IERRNode
      */
     private myValue;
 
@@ -24,9 +24,9 @@ class PropertyNode : INode {
      *
      * @param string myName The property name
      * @param string|null $visibility The visibility of the property.
-     * @param uim.errors.debugs.INode myValue The property value node.
+     * @param uim.errors.debugs.IERRNode myValue The property value node.
      */
-    this(string myName, Nullable!string visibility, INode myValue) {
+    this(string myName, Nullable!string visibility, IERRNode myValue) {
         this.name = myName;
         this.visibility = $visibility;
         this.value = myValue;
@@ -35,9 +35,9 @@ class PropertyNode : INode {
     /**
      * Get the value
      *
-     * @return uim.errors.debugs.INode
+     * @return uim.errors.debugs.IERRNode
      */
-    INode getValue() {
+    IERRNode getValue() {
       return this.value;
     }
 
@@ -51,7 +51,7 @@ class PropertyNode : INode {
       return this.name;
     }
 
-    INode[] getChildren() {
+    IERRNode[] getChildren() {
       return [this.value];
     }
 }

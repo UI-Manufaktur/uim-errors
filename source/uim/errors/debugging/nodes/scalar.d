@@ -8,7 +8,7 @@ module uim.errors.debugs.nodes;
 /**
  * Dump node for scalar values.
  */
-class ScalarNode : INode {
+class ScalarNode : IERRNode {
     private string _type;
 
     /**
@@ -44,7 +44,7 @@ class ScalarNode : INode {
     }
 
 
-    INode[] getChildren() {
+    IERRNode[] getChildren() {
         return [];
     }
 }
