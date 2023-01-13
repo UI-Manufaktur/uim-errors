@@ -3,6 +3,7 @@ module uim.errors;
 @safe:
 import uim.cake;
 
+use Psr\Http\messages.IResponse; 
 // IExceptionRenderer
 interface IExceptionRenderer {
     /**

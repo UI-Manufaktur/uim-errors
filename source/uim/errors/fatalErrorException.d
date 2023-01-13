@@ -3,6 +3,7 @@ module uim.errors;
 @safe:
 import uim.cake;
 
+use Throwable;
 /**
  * Represents a fatal error
  */

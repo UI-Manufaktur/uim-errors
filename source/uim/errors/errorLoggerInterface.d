@@ -3,6 +3,9 @@ module uim.errors.errorlogger;
 @safe:
 import uim.cake;
 
+use Psr\Http\messages.IServerRequest;
+use Throwable; 
+
 /**
  * Interface for error logging handlers.
  *
