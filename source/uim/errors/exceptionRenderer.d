@@ -1,7 +1,8 @@
 module uim.errors;
 
 @safe:
-import uim.safe;
+import uim.errors;
+
 
 /**
  * Exception Renderer.

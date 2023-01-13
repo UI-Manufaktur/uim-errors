@@ -15,10 +15,9 @@
  * @since         0.10.5
   */module uim.cake.Error;
 
-import uim.cake.core.App;
-import uim.cake.http.ResponseEmitter;
-import uim.cake.routings.Router;
-use Psr\Http\messages.IServerRequest;
+@safe:
+import uim.errors;
+
 use RuntimeException;
 use Throwable;
 

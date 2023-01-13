@@ -1,8 +1,8 @@
 module uim.cake.Error;
 
-import uim.cake.core.Configure;
-import uim.cake.core.InstanceConfigTrait;
-import uim.cake.routings.Router;
+@safe:
+import uim.errors;
+
 use Psr\Http\messages.IServerRequest;
 use RuntimeException;
 use Throwable;

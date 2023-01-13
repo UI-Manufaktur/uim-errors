@@ -1,7 +1,8 @@
 module uim.errors;
 
 @safe:
-import uim.cake;
+import uim.errors;
+
 
 use Throwable;
 /**

@@ -1,7 +1,7 @@
 module uim.errors.errorlogger;
 
 @safe:
-import uim.cake;
+import uim.errors;
 
 use Psr\Http\messages.IServerRequest;
 use Throwable; 

@@ -1,12 +1,9 @@
 
 module uim.cake.Error;
 
-import uim.cake.core.Configure;
-import uim.cake.core.InstanceConfigTrait;
-import uim.errors.rendererss.ConsoleErrorRenderer;
-import uim.errors.rendererss.HtmlErrorRenderer;
-import uim.cake.events.EventDispatcherTrait;
-import uim.cake.routings.Router;
+@safe:
+import uim.errors;
+
 use Exception;
 
 /**

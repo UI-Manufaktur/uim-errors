@@ -1,9 +1,8 @@
 module uim.cake.Error;
 
-import uim.cake.core.Configure;
-import uim.cake.core.exceptions.UIMException;
-import uim.cake.core.InstanceConfigTrait;
-import uim.cake.logs.Log;
+@safe:
+import uim.errors;
+
 use Psr\Http\messages.IServerRequest;
 use Throwable;
 

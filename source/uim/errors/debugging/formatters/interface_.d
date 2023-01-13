@@ -5,6 +5,9 @@
 **********************************************************************************************************/
 module uim.errors.debugs;
 
+@safe:
+import uim.errors;
+
 /**
  * Interface for formatters used by Debugger::exportVar()
  *

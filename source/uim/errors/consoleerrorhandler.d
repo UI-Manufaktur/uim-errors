@@ -1,8 +1,8 @@
 module uim.cake.Error;
 
-import uim.cake.Command\Command;
-import uim.cake.consoles.ConsoleOutput;
-import uim.cake.consoles.exceptions.ConsoleException;
+@safe:
+import uim.errors;
+
 use Throwable;
 
 /**

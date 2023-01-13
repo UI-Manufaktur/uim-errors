@@ -1,10 +1,9 @@
 
 module uim.cake.Error;
 
-import uim.cake.core.InstanceConfigTrait;
-import uim.errors.rendererss.ConsoleExceptionRenderer;
-import uim.cake.events.EventDispatcherTrait;
-import uim.cake.routings.Router;
+@safe:
+import uim.errors;
+
 use InvalidArgumentException;
 use Psr\Http\messages.IServerRequest;
 use Throwable;

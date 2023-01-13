@@ -6,7 +6,8 @@
 module uim.errors.Middleware;
 
 @safe:
-import uim.cake;
+import uim.errors;
+
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\RedirectResponse;
