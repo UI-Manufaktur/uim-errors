@@ -226,8 +226,8 @@ class ExceptionRenderer : IExceptionRenderer
             array_unshift($trace, $origin);
             $viewVars["trace"] = $trace;
             $viewVars += $origin;
-            $serialize[] = "file";
-            $serialize[] = "line";
+            $serialize ~= "file";
+            $serialize ~= "line";
         }
         this.controller.set($viewVars);
         this.controller.viewBuilder().setOption("serialize", $serialize);

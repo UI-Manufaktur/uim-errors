@@ -147,7 +147,7 @@ class ConsoleFormatter : IFormatter {
         $arrow = this.style("punct", ":");
         foreach ($var.getChildren() as $item) {
             $val = $item.getValue();
-            $vars[] = $break . this.export($item.getKey(), $indent) . $arrow . this.export($val, $indent);
+            $vars ~= $break . this.export($item.getKey(), $indent) . $arrow . this.export($val, $indent);
         }
 
         $close = this.style("punct", "]");
@@ -191,13 +191,13 @@ class ConsoleFormatter : IFormatter {
             $visibility = $property.getVisibility();
             myName = $property.getName();
             if ($visibility && $visibility != "public") {
-                $props[] = this.style("visibility", $visibility) .
+                $props ~= this.style("visibility", $visibility) .
                     " " ~
                     this.style("property", myName) .
                     $arrow .
                     this.export($property.getValue(), $indent);
             } else {
-                $props[] = this.style("property", myName) .
+                $props ~= this.style("property", myName) .
                     $arrow .
                     this.export($property.getValue(), $indent);
             }

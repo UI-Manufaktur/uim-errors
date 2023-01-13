@@ -8,68 +8,42 @@ module uim.errors.Error;
 @safe:
 import uim.errors;
 
-/**
- * Object wrapper around PHP errors that are emitted by `trigger_error()`
- */
-class PhpError
-{
-    /**
-     * @var int
-     */
-    private $code;
+// Error base class for UIM applications
+class DERRError {
+  mixin(OProperty!("int", "code"));
 
-    /**
-     * @var string
-     */
-    private $message;
+  mixin(OProperty!("string", "message"));
 
-    /**
-     * @var string|null
-     */
-    private $file;
+  mixin(OProperty!("string", "file"));
 
-    /**
-     * @var int|null
-     */
-    private $line;
+  mixin(OProperty!("int", "line"));
 
-    /**
-     * Stack trace data. Each item should have a `reference`, `file` and `line` keys.
-     *
-     * @var array<array<string, int>>
-     */
-    private $trace;
+  mixin(OProperty!("int[string][]", "trace"));
 
-    /**
-     * @var array<int, string>
-     */
-    private $levelMap = [
-        E_PARSE: "error",
-        E_ERROR: "error",
-        E_CORE_ERROR: "error",
-        E_COMPILE_ERROR: "error",
-        E_USER_ERROR: "error",
-        E_WARNING: "warning",
-        E_USER_WARNING: "warning",
-        E_COMPILE_WARNING: "warning",
-        E_RECOVERABLE_ERROR: "warning",
-        E_NOTICE: "notice",
-        E_USER_NOTICE: "notice",
-        E_STRICT: "strict",
-        E_DEPRECATED: "deprecated",
-        E_USER_DEPRECATED: "deprecated",
-    ];
+  private string[int] levelMap = [
+      E_PARSE: "error",
+      E_ERROR: "error",
+      E_CORE_ERROR: "error",
+      E_COMPILE_ERROR: "error",
+      E_USER_ERROR: "error",
+      E_WARNING: "warning",
+      E_USER_WARNING: "warning",
+      E_COMPILE_WARNING: "warning",
+      E_RECOVERABLE_ERROR: "warning",
+      E_NOTICE: "notice",
+      E_USER_NOTICE: "notice",
+      E_STRICT: "strict",
+      E_DEPRECATED: "deprecated",
+      E_USER_DEPRECATED: "deprecated",
+  ];
 
-    /**
-     * @var array<string, int>
-     */
-    private $logMap = [
-        "error": LOG_ERR,
-        "warning": LOG_WARNING,
-        "notice": LOG_NOTICE,
-        "strict": LOG_NOTICE,
-        "deprecated": LOG_NOTICE,
-    ];
+  private int[string] $logMap = [
+      "error": LOG_ERR,
+      "warning": LOG_WARNING,
+      "notice": LOG_NOTICE,
+      "strict": LOG_NOTICE,
+      "deprecated": LOG_NOTICE,
+  ];
 
     /**
      * Constructor
@@ -81,24 +55,18 @@ class PhpError
      * @param array $trace The backtrace for the error.
      */
     this(
-        int $code,
-        string $message,
-        Nullable!string $file = null,
-        Nullable!int $line = null,
-        array $trace = null
+        int aCode,
+        string aMessage,
+        string aFile = "",
+        int aLine = 0,
+        int[string][] traceData = null
     ) {
-        this.code = $code;
-        this.message = $message;
-        this.file = $file;
-        this.line = $line;
-        this.trace = $trace;
-    }
-
-    /**
-     * Get the PHP error constant.
-     */
-    int getCode() {
-        return this.code;
+        this
+          .code(aCode)
+          .message(aMessage)
+          .file(aFile)
+          .line(aLine)
+          .trace(traceData);
     }
 
     /**
@@ -110,52 +78,18 @@ class PhpError
         return this.logMap[$label] ?? LOG_ERR;
     }
 
-    /**
-     * Get the error code label
-     */
-    string getLabel() {
-        return this.levelMap[this.code] ?? "error";
+    // Get the error code label
+    string label() {
+      return this.levelMap.get(this.code, "error");
     }
 
-    /**
-     * Get the error message.
-     */
-    string getMessage() {
-        return this.message;
-    }
-
-    /**
-     * Get the error file
-     *
-     */
-    Nullable!string getFile() {
-        return this.file;
-    }
-
-    /**
-     * Get the error line number.
-     *
-     */
-    Nullable!int getLine() {
-        return this.line;
-    }
-
-    /**
-     * Get the stacktrace as an array.
-     */
-    array getTrace() {
-        return this.trace;
-    }
-
-    /**
-     * Get the stacktrace as a string.
-     */
+    // Get the stacktrace as a string.
     string getTraceAsString() {
-        $out = null;
-        foreach (this.trace as $frame) {
-            $out[] = "{$frame["reference"]} {$frame["file"]}, line {$frame["line"]}";
-        }
+      string[] results;
+      foreach (traceEntry; this.trace) {
+          $out ~= "{$frame["reference"]} {$frame["file"]}, line {$frame["line"]}";
+      }
 
-        return implode("\n", $out);
+      return results.join("\n");
     }
 }

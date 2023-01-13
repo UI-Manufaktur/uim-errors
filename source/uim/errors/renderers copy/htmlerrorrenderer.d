@@ -9,7 +9,7 @@
 
 import uim.cake.errors.Debugger;
 import uim.cake.errors.ErrorRendererInterface;
-import uim.cake.errors.PhpError;
+import uim.cake.errors.DERRError;
 
 /**
  * Interactive HTML error rendering with a stack trace.
@@ -25,7 +25,7 @@ class HtmlErrorRenderer : ErrorRendererInterface
     }
 
 
-    string render(PhpError $error, bool $debug) {
+    string render(DERRError $error, bool $debug) {
         if (!$debug) {
             return "";
         }

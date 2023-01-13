@@ -97,7 +97,7 @@ TEXT;
 
         foreach (myItem; aNode.getChildren()) {
             $val = myItem.getValue();
-            $vars[] = $break . this.export($item.getKey(), aIndent) ~ ":" ~ this.export($val, aIndent);
+            $vars ~= $break . this.export($item.getKey(), aIndent) ~ ":" ~ this.export($val, aIndent);
         }
         if (count($vars)) {
             return myResult . implode(",", $vars) . $end ~ "]";
@@ -129,9 +129,9 @@ TEXT;
             $visibility = $property.getVisibility();
             myName = $property.getName();
             if ($visibility && $visibility != "public") {
-                $props[] = "[{$visibility}] {myName}: " ~ this.export($property.getValue(), aIndent);
+                $props ~= "[{$visibility}] {myName}: " ~ this.export($property.getValue(), aIndent);
             } else {
-                $props[] = "{myName}: " ~ this.export($property.getValue(), aIndent);
+                $props ~= "{myName}: " ~ this.export($property.getValue(), aIndent);
             }
         }
         if (count($props)) {

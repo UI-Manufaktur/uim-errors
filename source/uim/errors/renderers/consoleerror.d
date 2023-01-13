@@ -46,7 +46,7 @@ class ConsoleErrorRenderer : IErrorRenderer
     }
 
 
-    string render(PhpError $error, bool $debug) {
+    string render(DERRError $error, bool $debug) {
         $trace = "";
         if (this.trace) {
             $trace = "\n<info>Stack Trace:</info>\n\n" ~ $error.getTraceAsString();

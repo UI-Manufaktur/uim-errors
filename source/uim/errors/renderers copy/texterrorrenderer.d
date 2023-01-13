@@ -8,7 +8,7 @@
   */module uim.cake.errors.renderers;
 
 import uim.cake.errors.ErrorRendererInterface;
-import uim.cake.errors.PhpError;
+import uim.cake.errors.DERRError;
 
 /**
  * Plain text error rendering with a stack trace.
@@ -23,7 +23,7 @@ class TextErrorRenderer : ErrorRendererInterface
     }
 
 
-    string render(PhpError $error, bool $debug) {
+    string render(DERRError $error, bool $debug) {
         if (!$debug) {
             return "";
         }

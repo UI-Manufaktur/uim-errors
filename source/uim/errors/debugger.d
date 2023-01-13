@@ -403,7 +403,7 @@ class Debugger
                     if ($options['args'] && isset($next['args'])) {
                         $args = null;
                         foreach ($next['args'] as $arg) {
-                            $args[] = Debugger::exportVar($arg);
+                            $args ~= Debugger::exportVar($arg);
                         }
                         $reference ~= implode(', ', $args);
                     }
@@ -414,12 +414,12 @@ class Debugger
                 continue;
             }
             if ($options['format'] == 'points') {
-                $back[] = ['file': $trace['file'], 'line': $trace['line'], 'reference': $reference];
+                $back ~= ['file': $trace['file'], 'line': $trace['line'], 'reference': $reference];
             } elseif ($options['format'] == 'array') {
                 if (!$options['args']) {
                     unset($trace['args']);
                 }
-                $back[] = $trace;
+                $back ~= $trace;
             } else {
                 if (isset($self._templates[$options['format']]['traceLine'])) {
                     $tpl = $self._templates[$options['format']]['traceLine'];
@@ -429,7 +429,7 @@ class Debugger
                 $trace['path'] = static::trimPath($trace['file']);
                 $trace['reference'] = $reference;
                 unset($trace['object'], $trace['args']);
-                $back[] = Text::insert($tpl, $trace, ['before': '{:', 'after': '}']);
+                $back ~= Text::insert($tpl, $trace, ['before': '{:', 'after': '}']);
             }
         }
 
@@ -508,9 +508,9 @@ class Debugger
             }
             $string = replace(["\r\n", "\n"], '', static::_highlight($data[$i]));
             if ($i == $line) {
-                $lines[] = '<span class="code-highlight">' . $string . '</span>';
+                $lines ~= '<span class="code-highlight">' . $string . '</span>';
             } else {
-                $lines[] = $string;
+                $lines ~= $string;
             }
         }
 
@@ -695,10 +695,10 @@ class Debugger
                     // Likely recursion, so we increase depth.
                     $node = static::export($val, $context.withAddedDepth());
                 }
-                $items[] = new DERRArrayItemNode(static::export($key, $context), $node);
+                $items ~= new DERRArrayItemNode(static::export($key, $context), $node);
             }
         } else {
-            $items[] = new DERRArrayItemNode(
+            $items ~= new DERRArrayItemNode(
                 new ScalarNode('string', ''),
                 new SpecialNode('[maximum depth reached]')
             );
@@ -922,7 +922,7 @@ class Debugger
         if (isset(this.renderers[$outputFormat])) {
             /** @var array $trace */
             $trace = static::trace(['start': $data['start'], 'format': 'points']);
-            $error = new PhpError($data['code'], $data['description'], $data['file'], $data['line'], $trace);
+            $error = new DERRError($data['code'], $data['description'], $data['file'], $data['line'], $trace);
             $renderer = new this.renderers[$outputFormat]();
             writeln($renderer.render($error, Configure::read('debug'));
 
@@ -947,12 +947,12 @@ class Debugger
         $info = '';
 
         foreach ((array)$data['context'] as $var: $value) {
-            $context[] = "\${$var} = " ~ static::exportVar($value, 3);
+            $context ~= "\${$var} = " ~ static::exportVar($value, 3);
         }
 
         switch (_outputFormat) {
             case false:
-                _data[] = compact('context', 'trace') + $data;
+                _data ~= compact('context', 'trace') + $data;
 
                 return;
             case 'log':

@@ -113,7 +113,7 @@ class ErrorTrap
 
         /** @var array $trace */
         $trace = Debugger::trace(["start": 1, "format": "points"]);
-        $error = new PhpError($code, $description, $file, $line, $trace);
+        $error = new DERRError($code, $description, $file, $line, $trace);
 
         $debug = Configure::read("debug");
         $renderer = this.renderer();
@@ -139,9 +139,9 @@ class ErrorTrap
     /**
      * Logging helper method.
      *
-     * @param uim.cake.errors.PhpError $error The error object to log.
+     * @param uim.cake.errors.DERRError $error The error object to log.
      */
-    protected void logError(PhpError $error) {
+    protected void logError(DERRError $error) {
         if (!_config["log"]) {
             return;
         }

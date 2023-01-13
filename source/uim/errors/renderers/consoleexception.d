@@ -58,7 +58,7 @@ class ConsoleExceptionRenderer
         $exceptions = [this.error];
         $previous = this.error.getPrevious();
         while ($previous != null) {
-            $exceptions[] = $previous;
+            $exceptions ~= $previous;
             $previous = $previous.getPrevious();
         }
         $out = null;
@@ -91,19 +91,19 @@ class ConsoleExceptionRenderer
         if ($debug && $exception instanceof UIMException) {
             $attributes = $exception.getAttributes();
             if ($attributes) {
-                $out[] = "";
-                $out[] = "<info>Exception Attributes</info>";
-                $out[] = "";
-                $out[] = var_export($exception.getAttributes(), true);
+                $out ~= "";
+                $out ~= "<info>Exception Attributes</info>";
+                $out ~= "";
+                $out ~= var_export($exception.getAttributes(), true);
             }
         }
 
         if (this.trace) {
-            $out[] = "";
-            $out[] = "<info>Stack Trace:</info>";
-            $out[] = "";
-            $out[] = $exception.getTraceAsString();
-            $out[] = "";
+            $out ~= "";
+            $out ~= "<info>Stack Trace:</info>";
+            $out ~= "";
+            $out ~= $exception.getTraceAsString();
+            $out ~= "";
         }
 
         return $out;

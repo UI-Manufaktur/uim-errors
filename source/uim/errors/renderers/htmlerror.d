@@ -23,7 +23,7 @@ class HtmlErrorRenderer : IErrorRenderer
     }
 
 
-    string render(PhpError $error, bool $debug) {
+    string render(DERRError $error, bool $debug) {
         if (!$debug) {
             return "";
         }

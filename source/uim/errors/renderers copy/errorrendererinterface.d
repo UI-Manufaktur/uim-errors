@@ -16,11 +16,11 @@ interface ErrorRendererInterface
     /**
      * Render output for the provided error.
      *
-     * @param uim.cake.errors.PhpError $error The error to be rendered.
+     * @param uim.cake.errors.DERRError $error The error to be rendered.
      * @param bool $debug Whether or not the application is in debug mode.
      * @return string The output to be echoed.
      */
-    string render(PhpError $error, bool $debug);
+    string render(DERRError $error, bool $debug);
 
     /**
      * Write output to the renderer"s output stream

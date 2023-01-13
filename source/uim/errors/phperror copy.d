@@ -10,7 +10,7 @@
 /**
  * Object wrapper around PHP errors that are emitted by `trigger_error()`
  */
-class PhpError
+class DERRError
 {
     /**
      * @var int
@@ -152,7 +152,7 @@ class PhpError
     string getTraceAsString() {
         $out = null;
         foreach (this.trace as $frame) {
-            $out[] = "{$frame["reference"]} {$frame["file"]}, line {$frame["line"]}";
+            $out ~= "{$frame["reference"]} {$frame["file"]}, line {$frame["line"]}";
         }
 
         return implode("\n", $out);

@@ -205,7 +205,7 @@ class WebExceptionRenderer : ExceptionRendererInterface
         $exceptions = [$exception];
         $previous = $exception.getPrevious();
         while ($previous != null) {
-            $exceptions[] = $previous;
+            $exceptions ~= $previous;
             $previous = $previous.getPrevious();
         }
 
@@ -232,8 +232,8 @@ class WebExceptionRenderer : ExceptionRendererInterface
             array_unshift($trace, $origin);
             $viewVars["trace"] = $trace;
             $viewVars += $origin;
-            $serialize[] = "file";
-            $serialize[] = "line";
+            $serialize ~= "file";
+            $serialize ~= "line";
         }
         this.controller.set($viewVars);
         this.controller.viewBuilder().setOption("serialize", $serialize);

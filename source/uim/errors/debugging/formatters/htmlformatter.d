@@ -145,7 +145,7 @@ class HtmlFormatter : IFormatter {
         $arrow = this.style("punct", ":");
         foreach ($var.getChildren() as $item) {
             $val = $item.getValue();
-            $vars[] = $break ~ "<span class="cake-dbg-array-item">" ~
+            $vars ~= $break ~ "<span class="cake-dbg-array-item">" ~
                 this.export($item.getKey(), $indent) . $arrow . this.export($val, $indent) .
                 this.style("punct", ",") .
                 "</span>";
@@ -205,7 +205,7 @@ class HtmlFormatter : IFormatter {
             $visibility = $property.getVisibility();
             myName = $property.getName();
             if ($visibility && $visibility != "public") {
-                $props[] = $break .
+                $props ~= $break .
                     "<span class="cake-dbg-prop">" ~
                     this.style("visibility", $visibility) .
                     " " ~
@@ -214,7 +214,7 @@ class HtmlFormatter : IFormatter {
                     this.export($property.getValue(), $indent) .
                 "</span>";
             } else {
-                $props[] = $break .
+                $props ~= $break .
                     "<span class="cake-dbg-prop">" ~
                     this.style("property", myName) .
                     $arrow .

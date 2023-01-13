@@ -42,11 +42,11 @@ class ErrorLogger : ErrorLoggerInterface
     /**
      * Log an error to Cake"s Log subsystem
      *
-     * @param uim.cake.errors.PhpError $error The error to log
+     * @param uim.cake.errors.DERRError $error The error to log
      * @param ?\Psr\Http\messages.IServerRequest $request The request if in an HTTP context.
      * @param bool $includeTrace Should the log message include a stacktrace
      */
-    void logError(PhpError $error, ?IServerRequest $request = null, bool $includeTrace = false) {
+    void logError(DERRError $error, ?IServerRequest $request = null, bool $includeTrace = false) {
         $message = $error.getMessage();
         if ($request) {
             $message ~= this.getRequestContext($request);
