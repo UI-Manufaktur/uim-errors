@@ -309,8 +309,8 @@ abstract class BaseErrorHandler
         if (empty(_config["log"])) {
             return false;
         }
-        foreach (_config["skipLog"] as $class) {
-            if ($exception instanceof $class) {
+        foreach (_config["skipLog"] as aClassName) {
+            if ($exception instanceof aClassName) {
                 return false;
             }
         }

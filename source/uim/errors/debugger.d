@@ -179,14 +179,14 @@ class Debugger
     /**
      * Returns a reference to the Debugger singleton object instance.
      *
-     * @param string|null $class Class name.
+     * @param string|null aClassName Class name.
      * @return static
      */
-    static function getInstance(Nullable!string $class = null) {
+    static function getInstance(Nullable!string aClassName = null) {
         static $instance = null;
-        if (!empty($class)) {
-            if (!$instance || strtolower($class) != strtolower(get_class($instance[0]))) {
-                $instance[0] = new $class();
+        if (!empty(aClassName)) {
+            if (!$instance || strtolower(aClassName) != strtolower(get_class($instance[0]))) {
+                $instance[0] = new aClassName();
             }
         }
         if (!$instance) {
@@ -555,20 +555,20 @@ class Debugger
     function getExportFormatter(): IFormatter
     {
         $instance = static::getInstance();
-        $class = $instance.getConfig('exportFormatter');
-        if (!$class) {
+        aClassName = $instance.getConfig('exportFormatter');
+        if (!aClassName) {
             if (ConsoleFormatter::environmentMatches()) {
-                $class = ConsoleFormatter::class;
+                aClassName = ConsoleFormatter::class;
             } elseif (HtmlFormatter::environmentMatches()) {
-                $class = HtmlFormatter::class;
+                aClassName = HtmlFormatter::class;
             } else {
-                $class = TextFormatter::class;
+                aClassName = TextFormatter::class;
             }
         }
-        $instance = new $class();
+        $instance = new aClassName();
         if (!$instance instanceof IFormatter) {
             throw new RuntimeException(
-                "The `{$class}` formatter does not implement " ~ IFormatter::class
+                "The `{aClassName}` formatter does not implement " ~ IFormatter::class
             );
         }
 
@@ -720,11 +720,11 @@ class Debugger
         $isRef = $context.hasReference($var);
         $refNum = $context.getReferenceId($var);
 
-        $className = get_class($var);
+        aClassNameName = get_class($var);
         if ($isRef) {
-            return new ReferenceNode($className, $refNum);
+            return new ReferenceNode(aClassNameName, $refNum);
         }
-        $node = new ClassNode($className, $refNum);
+        $node = new ClassNode(aClassNameName, $refNum);
 
         $remaining = $context.remainingDepth();
         if ($remaining > 0) {
@@ -883,19 +883,19 @@ class Debugger
      * Add a renderer to the current instance.
      *
      * @param string aName The alias for the the renderer.
-     * @param class-string<uim.errors.IErrorRenderer> $class The classname of the renderer to use.
+     * @param class-string<uim.errors.IErrorRenderer> aClassName The classname of the renderer to use.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      */
-    static void addRenderer(string aName, string $class) {
+    static void addRenderer(string aName, string aClassName) {
         deprecationWarning('Debugger::addRenderer() is deprecated.');
-        if (!hasAllValues(IErrorRenderer::class, class_implements($class))) {
+        if (!hasAllValues(IErrorRenderer::class, class_implements(aClassName))) {
             throw new InvalidArgumentException(
-                'Invalid renderer class. $class must implement ' . IErrorRenderer::class
+                'Invalid renderer class. aClassName must implement ' . IErrorRenderer::class
             );
         }
         $self = Debugger::getInstance();
-        $self.renderers[$name] = $class;
+        $self.renderers[$name] = aClassName;
     }
 
     /**

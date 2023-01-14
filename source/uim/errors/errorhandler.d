@@ -139,16 +139,16 @@ class ErrorHandler : BaseErrorHandler
         $renderer = _config["exceptionRenderer"];
 
         if (is_string($renderer)) {
-            /** @var class-string<uim.errors.IExceptionRenderer>|null $class */
-            $class = App::className($renderer, "Error");
-            if (!$class) {
+            /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName */
+            aClassName = App::className($renderer, "Error");
+            if (!aClassName) {
                 throw new RuntimeException(sprintf(
                     "The '%s' renderer class could not be found.",
                     $renderer
                 ));
             }
 
-            return new $class($exception, $request);
+            return new aClassName($exception, $request);
         }
 
         /** @var callable $factory */

@@ -124,15 +124,15 @@ class WebExceptionRenderer : IExceptionRenderer
             $params["controller"] = "Error";
 
             $factory = new ControllerFactory(new Container());
-            $class = $factory.getControllerClass($request.withAttribute("params", $params));
+            aClassName = $factory.getControllerClass($request.withAttribute("params", $params));
 
-            if (!$class) {
-                /** @var string $class */
-                $class = App::className("Error", "Controller", "Controller");
+            if (!aClassName) {
+                /** @var string aClassName */
+                aClassName = App::className("Error", "Controller", "Controller");
             }
 
             /** @var uim.cake.controllers.Controller $controller */
-            $controller = new $class($request);
+            $controller = new aClassName($request);
             $controller.startupProcess();
         } catch (Throwable $e) {
             $errorOccured = true;

@@ -23,12 +23,12 @@ interface IErrorRenderer
      * @param bool $debug Whether or not the application is in debug mode.
      * @return string The output to be echoed.
      */
-    string render(DERRError $error, bool $debug);
+    string render(DERRError anError, bool $debug);
 
     /**
      * Write output to the renderer"s output stream
      *
      * @param string $out The content to output.
      */
-    void write(string $out);
+    void write(string outText);
 }

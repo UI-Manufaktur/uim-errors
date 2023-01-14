@@ -174,10 +174,10 @@ class ErrorTrap
      */
     function renderer(): IErrorRenderer
     {
-        /** @var class-string<uim.errors.IErrorRenderer> $class */
-        $class = this.getConfig("errorRenderer") ?: this.chooseErrorRenderer();
+        /** @var class-string<uim.errors.IErrorRenderer> aClassName */
+        aClassName = this.getConfig("errorRenderer") ?: this.chooseErrorRenderer();
 
-        return new $class(_config);
+        return new aClassName(_config);
     }
 
     /**
@@ -193,9 +193,9 @@ class ErrorTrap
             this.setConfig(["logger": $oldConfig, "errorLogger": null]);
         }
 
-        /** @var class-string<uim.errors.ErrorLoggerInterface> $class */
-        $class = this.getConfig("logger", _defaultConfig["logger"]);
+        /** @var class-string<uim.errors.ErrorLoggerInterface> aClassName */
+        aClassName = this.getConfig("logger", _defaultConfig["logger"]);
 
-        return new $class(_config);
+        return new aClassName(_config);
     }
 }

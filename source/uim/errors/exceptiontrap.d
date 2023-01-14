@@ -110,9 +110,9 @@ class ExceptionTrap
     function renderer(Throwable $exception, $request = null) {
         $request = $request ?? Router::getRequest();
 
-        /** @var class-string|callable $class */
-        $class = this.getConfig("exceptionRenderer");
-        $deprecatedConfig = ($class == ExceptionRenderer::class && PHP_SAPI == "cli");
+        /** @var class-string|callable aClassName */
+        aClassName = this.getConfig("exceptionRenderer");
+        $deprecatedConfig = (aClassName == ExceptionRenderer::class && PHP_SAPI == "cli");
         if ($deprecatedConfig) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
@@ -120,28 +120,28 @@ class ExceptionTrap
                 "one of the default exception renderers, or define a class that is not `Cake\errors.ExceptionRenderer`."
             );
         }
-        if (!$class || $deprecatedConfig) {
+        if (!aClassName || $deprecatedConfig) {
             // Default to detecting the exception renderer if we"re
             // in a CLI context and the Web renderer is currently selected.
             // This indicates old configuration or user error, in both scenarios
             // it is preferrable to use the Console renderer instead.
-            $class = this.chooseRenderer();
+            aClassName = this.chooseRenderer();
         }
 
-        if (is_string($class)) {
+        if (is_string(aClassName)) {
             /** @psalm-suppress ArgumentTypeCoercion */
-            if (!(method_exists($class, "render") && method_exists($class, "write"))) {
+            if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
                 throw new InvalidArgumentException(
-                    "Cannot use {$class} as an `exceptionRenderer`~ " ~
+                    "Cannot use {aClassName} as an `exceptionRenderer`~ " ~
                     "It must implement render() and write() methods."
                 );
             }
 
-            /** @var class-string<uim.errors.IExceptionRenderer> $class */
-            return new $class($exception, $request, _config);
+            /** @var class-string<uim.errors.IExceptionRenderer> aClassName */
+            return new aClassName($exception, $request, _config);
         }
 
-        return $class($exception, $request);
+        return aClassName($exception, $request);
     }
 
     /**
@@ -161,10 +161,10 @@ class ExceptionTrap
      */
     function logger(): ErrorLoggerInterface
     {
-        /** @var class-string<uim.errors.ErrorLoggerInterface> $class */
-        $class = this.getConfig("logger", _defaultConfig["logger"]);
+        /** @var class-string<uim.errors.ErrorLoggerInterface> aClassName */
+        aClassName = this.getConfig("logger", _defaultConfig["logger"]);
 
-        return new $class(_config);
+        return new aClassName(_config);
     }
 
     /**
@@ -325,8 +325,8 @@ class ExceptionTrap
     void logException(Throwable $exception, ?IServerRequest $request = null) {
         $shouldLog = _config["log"];
         if ($shouldLog) {
-            foreach (this.getConfig("skipLog") as $class) {
-                if ($exception instanceof $class) {
+            foreach (this.getConfig("skipLog") as aClassName) {
+                if ($exception instanceof aClassName) {
                     $shouldLog = false;
                 }
             }

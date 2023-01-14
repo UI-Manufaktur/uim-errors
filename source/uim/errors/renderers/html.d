@@ -3,27 +3,24 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.renderers;
+module uim.errors.renderers.html;
 
 @safe:
 import uim.errors;
-
 
 /**
  * Interactive HTML error rendering with a stack trace.
  *
  * Default output renderer for non CLI SAPI.
  */
-class HtmlErrorRenderer : IErrorRenderer
-{
+class HtmlErrorRenderer : IErrorRenderer {
 
-    void write(string $out) {
+    void write(string outText) {
         // Output to stdout which is the server response.
-        writeln($out;
+        writeln(outText);
     }
 
-
-    string render(DERRError $error, bool $debug) {
+    string render(DERRError anError, bool $debug) {
         if (!$debug) {
             return "";
         }

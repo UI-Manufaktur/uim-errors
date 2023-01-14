@@ -19,7 +19,7 @@ class TextErrorRenderer : IErrorRenderer {
     writeln(outText);
   }
 
-  string render(DERRError $error, bool isDebug) {
+  string render(DERRError anError, bool isDebug) {
     if (!isDebug) { return ""; }
 
     // isDebug

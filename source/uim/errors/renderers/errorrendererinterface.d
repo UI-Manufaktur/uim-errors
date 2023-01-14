@@ -11,21 +11,20 @@ module uim.errors;
  * The core provided implementations of this interface are used
  * by Debugger and ErrorTrap to render PHP errors.
  */
-interface ErrorRendererInterface
-{
+interface IERRErrorRenderer {
     /**
      * Render output for the provided error.
      *
-     * @param uim.errorss.DERRError $error The error to be rendered.
-     * @param bool $debug Whether or not the application is in debug mode.
-     * @return string The output to be echoed.
+     * anError - The error to be rendered.
+     * isDebugMode - Whether or not the application is in debug mode.
+     * returns - The output to be echoed.
      */
-    string render(DERRError $error, bool $debug);
+    string render(DERRError anError, bool isDebugMode);
 
     /**
      * Write output to the renderer"s output stream
      *
-     * @param string $out The content to output.
+     * @outText - The content to output.
      */
-    void write(string $out);
+    void write(string outText);
 }
