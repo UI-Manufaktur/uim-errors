@@ -1,4 +1,4 @@
-module uim.cake.errorss.renderers;
+module uim.errorss.renderers;
 
 @safe:
 import uim.cake;

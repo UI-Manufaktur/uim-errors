@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errorss.Middleware;
+module uim.errorss.Middleware;
 
 @safe:
 import uim.cake;
@@ -42,8 +42,8 @@ class ErrorHandlerMiddleware : IMiddleware
      *
      * - `trace` Should error logs include stack traces?
      * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
-     *   which returns a uim.cake.errorss.IExceptionRenderer instance.
-     *   Defaults to uim.cake.errorss.ExceptionRenderer
+     *   which returns a uim.errorss.IExceptionRenderer instance.
+     *   Defaults to uim.errorss.ExceptionRenderer
      *
      * @var array<string, mixed>
      */
@@ -64,7 +64,7 @@ class ErrorHandlerMiddleware : IMiddleware
     /**
      * Constructor
      *
-     * @param uim.cake.errorss.ErrorHandler|array myErrorHandler The error handler instance
+     * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
      *  or config array.
      * @throws \InvalidArgumentException
      */
@@ -165,12 +165,12 @@ class ErrorHandlerMiddleware : IMiddleware
     /**
      * Get a error handler instance
      *
-     * @return uim.cake.errorss.ErrorHandler The error handler.
+     * @return uim.errorss.ErrorHandler The error handler.
      */
     protected auto getErrorHandler(): ErrorHandler
     {
         if (this.errorHandler is null) {
-            /** @var class-string<uim.cake.errorss.ErrorHandler> myClassName */
+            /** @var class-string<uim.errorss.ErrorHandler> myClassName */
             myClassName = App::className("ErrorHandler", "Error");
             this.errorHandler = new myClassName(this.getConfig());
         }

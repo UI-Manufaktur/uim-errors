@@ -5,7 +5,7 @@
 
 
  * @since         4.4.0
-  */module uim.cake.errorss.renderers;
+  */module uim.errorss.renderers;
 
 import uim.cake.consoles.ConsoleOutput;
 import uim.cake.core.Configure;
@@ -18,7 +18,7 @@ use Throwable;
  *
  * Useful in CI or plain text environments.
  *
- * @todo 5.0 Implement uim.cake.errorss.ExceptionRendererInterface. This implementation can"t implement
+ * @todo 5.0 Implement uim.errorss.ExceptionRendererInterface. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
 class ConsoleExceptionRenderer

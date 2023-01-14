@@ -5,7 +5,7 @@
 
 
  * @since         3.4.0
-  */module uim.cake.errors;
+  */module uim.errors;
 
 use Psr\Http\messages.IResponse;
 

@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.errors;
+module uim.errors;
 
 use Psr\Http\messages.IServerRequest;
 use Throwable;
@@ -16,7 +16,7 @@ use Throwable;
  *
  * @method void logException(\Throwable $exception, ?\Psr\Http\messages.IServerRequest $request = null, bool $includeTrace = false)
  *   Log an exception with an optional HTTP request.
- * @method void logError(uim.cake.errorss.DERRError $error, ?\Psr\Http\messages.IServerRequest $request = null, bool $includeTrace = false)
+ * @method void logError(uim.errorss.DERRError $error, ?\Psr\Http\messages.IServerRequest $request = null, bool $includeTrace = false)
  *   Log an error with an optional HTTP request.
  */
 interface ErrorLoggerInterface
