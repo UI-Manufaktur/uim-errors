@@ -5,10 +5,10 @@
 
 
  * @since         4.4.0
-  */module uim.cake.errors.renderers;
+  */module uim.cake.errorss.renderers;
 
-import uim.cake.errors.ErrorRendererInterface;
-import uim.cake.errors.DERRError;
+import uim.cake.errorss.ErrorRendererInterface;
+import uim.cake.errorss.DERRError;
 
 /**
  * Plain text error rendering with a stack trace.

@@ -1,7 +1,7 @@
-vuim.cake.Error;
+vuim.cake.errors;
 
 import uim.cake.core.InstanceConfigTrait;
-import uim.cake.errors.rendererss.ConsoleExceptionRenderer;
+import uim.cake.errorss.rendererss.ConsoleExceptionRenderer;
 import uim.cake.events.EventDispatcherTrait;
 import uim.cake.routings.Router;
 use InvalidArgumentException;
@@ -101,7 +101,7 @@ class ExceptionTrap
      *
      * @param \Throwable $exception Exception to render
      * @param \Psr\Http\messages.IServerRequest|null $request The request if possible.
-     * @return uim.cake.errors.ExceptionRendererInterface
+     * @return uim.cake.errorss.ExceptionRendererInterface
      */
     function renderer(Throwable $exception, $request = null) {
         $request = $request ?? Router::getRequest();
@@ -133,7 +133,7 @@ class ExceptionTrap
                 );
             }
 
-            /** @var class-string<uim.cake.errors.ExceptionRendererInterface> $class */
+            /** @var class-string<uim.cake.errorss.ExceptionRendererInterface> $class */
             return new $class($exception, $request, _config);
         }
 
@@ -143,21 +143,21 @@ class ExceptionTrap
     /**
      * Choose an exception renderer based on config or the SAPI
      *
-     * @return class-string<uim.cake.errors.ExceptionRendererInterface>
+     * @return class-string<uim.cake.errorss.ExceptionRendererInterface>
      */
     protected string chooseRenderer() {
-        /** @var class-string<uim.cake.errors.ExceptionRendererInterface> */
+        /** @var class-string<uim.cake.errorss.ExceptionRendererInterface> */
         return PHP_SAPI == "cli" ? ConsoleExceptionRenderer::class : ExceptionRenderer::class;
     }
 
     /**
      * Get an instance of the logger.
      *
-     * @return uim.cake.errors.ErrorLoggerInterface
+     * @return uim.cake.errorss.ErrorLoggerInterface
      */
     function logger(): ErrorLoggerInterface
     {
-        /** @var class-string<uim.cake.errors.ErrorLoggerInterface> $class */
+        /** @var class-string<uim.cake.errorss.ErrorLoggerInterface> $class */
         $class = this.getConfig("logger", _defaultConfig["logger"]);
 
         return new $class(_config);
@@ -195,7 +195,7 @@ class ExceptionTrap
      * is mutable and the object returned by this method
      * could be a stale value.
      *
-     * @return uim.cake.errors.ExceptionTrap|null The global instance or null.
+     * @return uim.cake.errorss.ExceptionTrap|null The global instance or null.
      */
     static function instance(): ?self
     {

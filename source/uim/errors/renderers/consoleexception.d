@@ -19,17 +19,13 @@ use Throwable;
  * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
-class ConsoleExceptionRenderer
-{
+class ConsoleExceptionRenderer {
     /**
      * @var \Throwable
      */
     private $error;
 
-    /**
-     * @var DCONConsoleOutput
-     */
-    private $output;
+    private DCONConsoleOutput $output;
 
     /**
      * @var bool
@@ -49,12 +45,8 @@ class ConsoleExceptionRenderer
         this.trace = aConfig["trace"] ?? true;
     }
 
-    /**
-     * Render an exception into a plain text message.
-     *
-     * @return \Psr\Http\messages.IResponse|string
-     */
-    function render() {
+    // Render an exception into a plain text message.
+    string render() {
         $exceptions = [this.error];
         $previous = this.error.getPrevious();
         while ($previous != null) {

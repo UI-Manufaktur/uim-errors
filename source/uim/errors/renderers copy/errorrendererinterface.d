@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.Error;
+module uim.cake.errors;
 
 /**
  * Interface for PHP error rendering implementations
@@ -16,7 +16,7 @@ interface ErrorRendererInterface
     /**
      * Render output for the provided error.
      *
-     * @param uim.cake.errors.DERRError $error The error to be rendered.
+     * @param uim.cake.errorss.DERRError $error The error to be rendered.
      * @param bool $debug Whether or not the application is in debug mode.
      * @return string The output to be echoed.
      */
