@@ -14,7 +14,7 @@ import uim.errors;
  *
  * Writes to STDERR via a Cake\Console\ConsoleOutput instance for console environments
  */
-class ConsoleErrorRenderer : IErrorRenderer {
+class DERRConsoleErrorRenderer : IERRErrorRenderer {
   protected DCONConsoleOutput $output;
 
   protected bool $trace = false;

@@ -24,7 +24,7 @@ interface IERRErrorRenderer {
     /**
      * Write output to the renderer"s output stream
      *
-     * @outText - The content to output.
+     * outText - The content to output.
      */
     void write(string outText);
 }
