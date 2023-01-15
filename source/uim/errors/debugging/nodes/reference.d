@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugs.nodes;
+module uim.errors.debugs.nodes.reference;
 
 @safe:
 import uim.errors;
@@ -16,40 +16,32 @@ import uim.errors;
  * first time.
  */
 class ReferenceNode : IERRNode {
-    private string myClass;
+  /**
+    * Constructor
+    *
+    * aClassName - The class name
+    * anId - The id of the referenced class.
+    */
+  this(string aClassName, int anId) {
+      _className = aClassName;
+      _id = anId;
+  }
 
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * Constructor
-     *
-     * @param string myClass The class name
-     * @param int $id The id of the referenced class.
-     */
-    this(string myClass, int $id) {
-        this.class = myClass;
-        this.id = $id;
+  // #region Fields
+    private string _className;
+    // Get the class name/value
+    string value() {
+        return className;
     }
 
-    /**
-     * Get the class name/value
-     */
-    string getValue() {
-        return this.class;
-    }
-
-    /**
-     * Get the reference id for this node.
-     */
+    private int _id;
+    // Get the reference id for this node.
     int getId() {
-        return this.id;
+        return _id;
     }
+  // #endregion fields
 
-
-    IERRNode[] getChildren() {
-        return [];
-    }
+  IERRNode[] getChildren() {
+      return [];
+  }
 }

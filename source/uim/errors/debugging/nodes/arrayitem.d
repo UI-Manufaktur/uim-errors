@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugs.nodes;
+module uim.errors.debugs.nodes.arrayitem;
 
 @safe:
 import uim.errors;
@@ -11,7 +11,6 @@ import uim.errors;
 // Dump node for Array Items.
 class DERRArrayItemNode : IERRNode {
   private IERRNode _key;
-
   private IERRNode _value;
 
   /**

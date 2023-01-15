@@ -29,7 +29,7 @@ class SpecialNode : IERRNode {
     /**
      * Get the message/value
      */
-    string getValue() {
+    string value() {
         return this.value;
     }
 

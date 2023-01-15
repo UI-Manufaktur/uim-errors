@@ -3,43 +3,41 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugs.nodes;
+module uim.errors.debugs.nodes.array;
 
 @safe:
 import uim.errors;
 
 // Dump node for Array values.
 class DERRArrayNode : IERRNode {
-  private DERRArrayItemNode _items;
+  private IERRNode[] _items;
 
   /**
     * Constructor
     *
-    * @param array<uim.errors.debugs.DERRArrayItemNode> myItems The items for the array
+    * someItems - The items for the array
     */
-  this(IERRNode[] someItems = null) {
+  this(DERRArrayItemNode[] nodes = null) {
     _items = [];
-    foreach (myItem; someItems) {
-      this.add(myItem);
-    }
+    this.add(nodes);
   }
 
-  /**
-    * Add an item
-    *
-    * aNode - The item to add.
-    */
-  void add(DERRArrayItemNode aNode) {
-    _items ~= aNode;
+  // Add nodes
+  void add(DERRArrayItemNode[] nodes...) {
+    this.add(nodes);
+  }
+
+  void add(DERRArrayItemNode[] nodes) {
+    foreach (myItem; nodes) { _items ~= myItem; }
   }
 
   // Get the contained items
-  DERRArrayItemNode getValue() {
-      return this.items;
+  string value() {
+    return _items.map!(item => item.value).join(", ");
   }
 
   // Get Item nodes
-  IERRNode[]  getChildren() {
-    return this.items;
+  IERRNode[] children() {
+    return _items;
   }
 }

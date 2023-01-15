@@ -10,51 +10,45 @@ import uim.errors;
 
 // Dump node for object properties.
 class PropertyNode : IERRNode {
-    private string myName;
+  private string myName;
 
-    /**
-     * @var string|null
-     */
-    private $visibility;
+  private string _visibility;
 
-    /**
-     * @var uim.errors.debugs.IERRNode
-     */
-    private myValue;
+  private IERRNode _propertyValue;
 
-    /**
-     * Constructor
-     *
-     * @param string myName The property name
-     * @param string|null $visibility The visibility of the property.
-     * @param uim.errors.debugs.IERRNode myValue The property value node.
-     */
-    this(string myName, Nullable!string visibility, IERRNode myValue) {
-        this.name = myName;
-        this.visibility = $visibility;
-        this.value = myValue;
-    }
+  /**
+    * Constructor
+    *
+    * theName - The property name
+    * theVisibility - The visibility of the property.
+    * theValue - The property value node.
+    */
+  this(string theName, string theVisibility, IERRNode theValue) {
+    _name = theName;
+    _visibility = theVisibility;
+    _propertyValue = theValue;
+  }
 
-    /**
-     * Get the value
-     *
-     * @return uim.errors.debugs.IERRNode
-     */
-    IERRNode getValue() {
-      return this.value;
-    }
+  /**
+    * Get the value
+    *
+    * @return uim.errors.debugs.IERRNode
+    */
+  string value() {
+    return _propertyValue.value;
+  }
 
-    // Get the property visibility
-    string getVisibility() {
-      return this.visibility;
-    }
+  // Get the property visibility
+  string visibility() {
+    return _visibility;
+  }
 
-    // Get the property name
-    string getName() {
-      return this.name;
-    }
+  // Get the property name
+  string name() {
+    return _name;
+  }
 
-    IERRNode[] getChildren() {
-      return [this.value];
-    }
+  IERRNode[] children() {
+    return [this._propertyValue];
+  }
 }

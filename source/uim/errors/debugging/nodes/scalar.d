@@ -12,42 +12,52 @@ import uim.errors;
  * Dump node for scalar values.
  */
 class ScalarNode : IERRNode {
-    private string _type;
+  private string _nodeType;
 
-    /**
-     * @var string|float|int|bool|null
-     */
-    private myValue;
+  private string myStringValue;
+  private float myFloatValue;
+  private int myIntValue;
+  private bool myBoolValue;
 
-    /**
-     * Constructor
-     *
-     * @param string myType The type of scalar value.
-     * @param string|float|int|bool|null myValue The wrapped value.
-     */
-    this(string myType, myValue) {
-        _type = myType;
-        this.value = myValue;
+  this(string aValue) {
+    _nodeType = "string";
+    myStringValue = aValue;
+  }
+
+  this(float aValue) {
+    _nodeType = "float";
+    myFloatValue = aValue;
+  }
+
+  this(int aValue) {
+    _nodeType = "int";
+    myFloatValue = aValue;
+  }
+
+  this(bool aValue) {
+    _nodeType = "bool";
+    myFloatValue = aValue;
+  }
+
+  // Get the type of value
+  string nodeType() {
+    return _nodeType;
+  }
+
+  // Get the value
+  string value() {
+    switch(nodeType) {
+      case "null": return "null";
+      case "bool": return to!string(_boolValue);
+      case "int": return to!string(_intValue);
+      case "float": return to!string(_floatValue);
+      case "string": return _stringValue;
+      default: return "";
     }
+    return this.value;
+  }
 
-    /**
-     * Get the type of value
-     */
-    string getType() {
-        return _type;
-    }
-
-    /**
-     * Get the value
-     *
-     * @return string|float|int|bool|null
-     */
-    auto getValue() {
-        return this.value;
-    }
-
-
-    IERRNode[] getChildren() {
-        return [];
-    }
+  IERRNode[] getChildren() {
+    return []; // No children
+  }
 }

@@ -10,52 +10,44 @@ import uim.errors;
 
 // Dump node for objects/class instances.
 class ClassNode : IERRNode {
-    private string myClass;
+  private string _className;
 
-    private int $id;
+  private int _id;
 
-    private PropertyNode[] $properties = [];
+  private PropertyNode[] _properties;
 
-    /**
-     * Constructor
-     *
-     * @param string myClass The class name
-     * @param int $id The reference id of this object in the DumpContext
-     */
-    this(string myClass, int $id) {
-        this.class = myClass;
-        this.id = $id;
-    }
+  /**
+    * Constructor
+    *
+    * aClassName - The class name
+    * anId - The reference id of this object in the DumpContext
+    */
+  this(string aClassName, int anId) {
+    _className = aClassName;
+    _id = anId;
+  }
 
-    /**
-     * Add a property
-     *
-     * @param uim.errors.debugs.PropertyNode myNode The property to add.
-     */
-    void addProperty(PropertyNode aNode) {
-        _properties ~= aNode;
-    }
+  /**
+    * Add a property
+    *
+    * aNode - The property to add.
+    */
+  void add(PropertyNode aNode) {
+    _properties ~= aNode;
+  }
 
-    /**
-     * Get the class name
-     */
-    string getValue() {
-        return this.class;
-    }
+  // Get the class name
+  string value() {
+    return _className;
+  }
 
-    /**
-     * Get the reference id
-     */
-    int getId() {
-        return this.id;
-    }
+  // Get the reference id
+  int Id() {
+    return _id;
+  }
 
-    /**
-     * Get property nodes
-     *
-     * @return array<uim.errors.debugs.PropertyNode>
-     */
-    IERRNode[] getChildren() {
-        return this.properties;
-    }
+  // Get property nodes
+  IERRNode[] children() {
+    return _properties;
+  }
 }
